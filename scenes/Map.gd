@@ -46,7 +46,6 @@ var leaves = []
 var leaf_id = 0
 var rooms = []
 
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	generate()
@@ -64,7 +63,7 @@ func generate():
 func fill_roof():
 	for x in range(0, map_w):
 		for y in range(0, map_h):
-			set_cell(0, Vector2i(x, y), -1, Tiles.EMPTY)
+			set_cell(0, Vector2i(x, y), 1, Tiles.EMPTY)
 
 func start_tree():
 	rooms = []
@@ -193,9 +192,9 @@ func draw_edges():
 
 		for y in range(r.y, r.y + r.h):
 			if (get_cell_atlas_coords(0, Vector2i(r.x - 2, y)) == Tiles.CORRIDOR):
-				set_cell(0, Vector2i(r.x - 1, y), 1)
+				set_cell(0, Vector2i(r.x - 1, y), 1, Tiles.GROUND)
 			elif (get_cell_atlas_coords(0, Vector2i(r.x + r.w + 1, y)) == Tiles.CORRIDOR): 
-				set_cell(0, Vector2i(r.x + r.w, y), ROOM_BUILDER_ID)
+				set_cell(0, Vector2i(r.x + r.w, y), ROOM_BUILDER_ID, Tiles.GROUND)
 			else:
 				set_cell(0, Vector2i(r.x - 1, y), ROOM_BUILDER_ID, Tiles.LEFT_WALL)
 				set_cell(0, Vector2i(r.x + r.w, y), ROOM_BUILDER_ID, Tiles.RIGHT_WALL)
