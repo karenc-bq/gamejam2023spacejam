@@ -13,6 +13,7 @@ func _ready():
 	timer.start()
 	$TimerLabel.set_text(str(minutes, " : 00"))
 	minutes = minutes - 1
+	$duffy_sprites.start($StartPosition.position)
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
