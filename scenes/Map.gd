@@ -63,7 +63,7 @@ func start_tree():
 
 	tree[leaf_id] = { "x": 1, "y": 1, "w": map_w-2, "h": map_h-2 }
 	leaf_id += 1
-	
+
 func create_leaf(parent_id):
 	var x = tree[parent_id].x
 	var y = tree[parent_id].y
@@ -123,7 +123,7 @@ func create_leaf(parent_id):
 		# try and create more leaves
 		create_leaf(tree[parent_id].l)
 		create_leaf(tree[parent_id].r)
-		
+
 func create_rooms():
 	for leaf_id in tree:
 		var leaf = tree[leaf_id]
@@ -142,9 +142,9 @@ func create_rooms():
 			room.center.x = floor(room.x + room.w/2)
 			room.center.y = floor(room.y + room.h/2)
 			rooms.append(room);
-	
+
 	var shoeRoom = randi_range(0, rooms.size())
-	
+
 	# draw the rooms on the tilemap
 	for i in range(rooms.size()):
 		var r = rooms[i]
@@ -163,7 +163,7 @@ func create_rooms():
 		for x in range(r.x, r.x + r.w):
 			for y in range(r.y, r.y + r.h):
 				set_cell(0, Vector2i(x, y), 1, Tiles.GROUND)
-				
+
 	# draw edges for the rooms
 	for i in range(rooms.size()):
 		var r = rooms[i]
@@ -171,11 +171,11 @@ func create_rooms():
 			set_cell(0, Vector2i(x, r.y - 1), 1, Tiles.ROOF)
 			set_cell(0, Vector2i(x, r.y), 1, Tiles.WALL)
 			set_cell(0, Vector2i(x, r.y + r.h), 1, Tiles.EDGE)
-		
+
 		for y in range(r.y, r.y + r.h):
 			set_cell(0, Vector2i(r.x - 1, y), 1, Tiles.LEFT_WALL)
 			set_cell(0, Vector2i(r.x + r.w, y), 1, Tiles.RIGHT_WALL)
-			
+
 		## draw corners
 		set_cell(0, Vector2i(r.x - 1, r.y - 1), 1, Tiles.TOP_LEFT)
 		set_cell(0, Vector2i(r.x + r.w, r.y - 1), 1, Tiles.TOP_RIGHT)
@@ -211,7 +211,7 @@ func connect_leaves(leaf1, leaf2):
 		for j in range(y, y + h):
 			if (get_cell_atlas_coords(0, Vector2i(i, j)) == Tiles.ROOF):
 				set_cell(0, Vector2i(i, j), 1, Tiles.GROUND)
-			
+
 func clear_deadends():
 	var done = false
 
