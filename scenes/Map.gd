@@ -264,11 +264,8 @@ func clear_deadends():
 			if get_cell_atlas_coords(0, cell) != Tiles.CORRIDOR: continue
 
 			var nearby = check_nearby(cell.x, cell.y)
-			if nearby[0] == 3:
-				if (nearby[1] == Tiles.CORRIDOR):
-					set_cell(0, cell, 1, Tiles.ROOF)
-				else:
-					set_cell(0, cell, 1)
+			if nearby[0] == 3 || next_to_corner(cell):
+				set_cell(0, cell, 1, Tiles.ROOF)
 				done = false
 
 # check in 4 dirs to see how many tiles are empty
@@ -283,6 +280,11 @@ func check_nearby(x, y):
 			non_empty = side
 
 	return [count, non_empty]
+
+func next_to_corner(nearby):
+	var edges = [Tiles.TOP_LEFT, Tiles.TOP_RIGHT, Tiles.BOTTOM_LEFT, Tiles.BOTTOM_RIGHT]
+	return (nearby[0] == 2 && edges.has(nearby[1]))
+
 
 func along_wall(x, y):
 	if get_cell_atlas_coords(0, Vector2i(x, y - 1)) == Tiles.GROUND || get_cell_atlas_coords(0, Vector2i(x, y + 1)) == Tiles.GROUND:
