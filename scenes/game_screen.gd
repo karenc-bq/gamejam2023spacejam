@@ -1,5 +1,5 @@
 extends Node2D
-
+# file for time node
 var timer
 var seconds = 60
 var minutes = 1
@@ -13,8 +13,7 @@ func _ready():
 	timer.start()
 	$TimerLabel.set_text(str(minutes, " : 00"))
 	minutes = minutes - 1
-
-
+	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass

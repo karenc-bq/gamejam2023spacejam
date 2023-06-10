@@ -1,11 +1,12 @@
-[gd_scene load_steps=12 format=3 uid="uid://bsq5rdbyx2lig"]
+[gd_scene load_steps=13 format=3 uid="uid://bsq5rdbyx2lig"]
 
 [ext_resource type="Script" path="res://scenes/game_screen.gd" id="1_0f2hy"]
 [ext_resource type="Script" path="res://scenes/Util.gd" id="1_mu87s"]
 [ext_resource type="FontFile" uid="uid://cl1cc658t40si" path="res://assets/fonts/Kaph_Font_1_10/TrueType (.ttf)/Kaph-Regular.ttf" id="2_51c64"]
 [ext_resource type="Script" path="res://scenes/Map.gd" id="2_cw1f6"]
-[ext_resource type="Texture2D" uid="uid://dnua5efswagcd" path="res://assets/interior/16x16/Interiors_free_16x16.png" id="2_ohv3f"]
-[ext_resource type="Texture2D" uid="uid://dhnidok8eviv1" path="res://assets/interior/16x16/Room_Builder_free_16x16.png" id="3_3lkbw"]
+[ext_resource type="Texture2D" uid="uid://cqhexlg5f13ru" path="res://assets/interior/16x16/Interiors_free_16x16.png" id="2_ohv3f"]
+[ext_resource type="Texture2D" uid="uid://daydtweybvo1e" path="res://assets/interior/16x16/Room_Builder_free_16x16.png" id="3_3lkbw"]
+[ext_resource type="PackedScene" uid="uid://wa1ytkr2nc41" path="res://scenes/duffy_sprites.tscn" id="3_tyju2"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_d875n"]
 resource_name = "room_builder"
@@ -243,7 +244,6 @@ texture = ExtResource("3_3lkbw")
 8:1/0 = 0
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_6m6gp"]
-load_path = "res://.godot/imported/color-grid.png-9125d59add95348ead0473e22c048217.ctex"
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_djsej"]
 texture = SubResource("CompressedTexture2D_6m6gp")
@@ -1376,11 +1376,16 @@ sources/3 = SubResource("TileSetAtlasSource_iijkc")
 [node name="game_screen" type="Node2D"]
 script = ExtResource("1_mu87s")
 
+[node name="StartPosition" type="Marker2D" parent="."]
+position = Vector2(250, 450)
+
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_nxxh7")
 format = 2
 layer_0/name = "background"
 script = ExtResource("2_cw1f6")
+
+[node name="duffy_sprites" parent="." instance=ExtResource("3_tyju2")]
 
 [node name="TimerNode" type="Node2D" parent="."]
 z_index = 1000
