@@ -11,9 +11,12 @@ var tile_map
 
 func _ready():
 	screen_size = get_viewport_rect().size
-	position.x  = screen_size.x/2
-	position.y  = screen_size.y/2
 	tile_map = get_parent().get_node("TileMap")
+	var start_room = tile_map.rooms[0]
+	position = tile_map.map_to_local(start_room.center)
+#	position.x  = screen_size.x/2
+#	position.y  = screen_size.y/2
+	
 
 func _process(delta):
 	var velocity = Vector2.ZERO # The player's movement vector.
@@ -45,7 +48,8 @@ func _process(delta):
 #	print("-AL- get_cell_atlas_coords player updated X, Y: ", tile_map.get_cell_atlas_coords(0, Vector2i(map_x, map_y)))
 #	if (tile_map.get_cell_atlas_coords(0, Vector2i(map_x, map_y)) != Map.Tiles.WALL):
 	print("-AL- get_cell_atlas_coords player updated X, Y: ", tile_map.get_cell_atlas_coords(0, tile_map.local_to_map(Vector2i(future_pos.x, future_pos.y))))
-	if (tile_map.get_cell_atlas_coords(0, tile_map.local_to_map(Vector2i(future_pos.x, future_pos.y))) != Map.Tiles.WALL):
+	var tile = tile_map.get_cell_atlas_coords(0, tile_map.local_to_map(Vector2i(future_pos.x, future_pos.y)))
+	if (tile == Map.Tiles.BOTTOM_DOOR || tile == Map.Tiles.CORRIDOR || tile == Map.Tiles.GROUND):
 		print("-AL- wall not detected")
 		position = future_pos
 	else:

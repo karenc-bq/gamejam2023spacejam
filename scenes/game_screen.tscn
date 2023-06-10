@@ -1386,6 +1386,7 @@ layer_0/name = "background"
 script = ExtResource("2_cw1f6")
 
 [node name="duffy_sprites" parent="." instance=ExtResource("3_tyju2")]
+speed = 400
 
 [node name="TimerNode" type="Node2D" parent="."]
 z_index = 1000
