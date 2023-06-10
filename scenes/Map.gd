@@ -8,6 +8,7 @@ const Util = preload("res://scenes/Util.gd")
 @export_range(0.2, 0.5) var min_room_factor: float = 0.4
 
 const FLOOR_TILE = Vector2i(12, 14)
+const CORRIDOR_TILE = Vector2i(12, 6)
 const ROOF_TILE = Vector2i(1, 13)
 const WALL_TILE = Vector2i(1, 14)
 const WALL_LEFT_TILE = Vector2i(11, 2)
@@ -17,9 +18,15 @@ const TOP_LEFT_TILE = Vector2i(11, 1)
 const TOP_RIGHT_TILE = Vector2i(13, 1)
 const BOTTOM_LEFT_TILE = Vector2i(11, 3)
 const BOTTOM_RIGHT_TILE = Vector2i(13, 3)
+const TOP_DOOR_TILE = Vector2i(12, 24)
+const BOTTOM_DOOR_TILE = Vector2i(12, 25)
+
+const ROOM_BUILDER_ID = 1
+const INTERIOR_ID = 3
 
 const Tiles = { 
 	"GROUND": FLOOR_TILE,
+	"CORRIDOR": CORRIDOR_TILE,
 	"ROOF": ROOF_TILE,
 	"WALL": WALL_TILE,
 	"LEFT_WALL": WALL_LEFT_TILE,
@@ -29,13 +36,15 @@ const Tiles = {
 	"TOP_RIGHT": TOP_RIGHT_TILE,
 	"BOTTOM_LEFT": BOTTOM_LEFT_TILE,
 	"BOTTOM_RIGHT": BOTTOM_RIGHT_TILE,
+	"TOP_DOOR": TOP_DOOR_TILE,
+	"BOTTOM_DOOR": BOTTOM_DOOR_TILE,
+	"EMPTY" : Vector2i(-1 ,-1)
 }
 
 var tree = {}
 var leaves = []
 var leaf_id = 0
 var rooms = []
-
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -49,11 +58,12 @@ func generate():
 	create_rooms()
 	join_rooms()
 	clear_deadends()
+	draw_edges()
 
 func fill_roof():
 	for x in range(0, map_w):
 		for y in range(0, map_h):
-			set_cell(0, Vector2i(x, y), 1)
+			set_cell(0, Vector2i(x, y), 1, Tiles.EMPTY)
 
 func start_tree():
 	rooms = []
@@ -142,7 +152,10 @@ func create_rooms():
 			room.center.x = floor(room.x + room.w/2)
 			room.center.y = floor(room.y + room.h/2)
 			rooms.append(room);
-
+		
+	draw_rooms()
+				
+func draw_rooms():
 	var shoeRoom = randi_range(0, rooms.size())
 
 	# draw the rooms on the tilemap
@@ -162,25 +175,35 @@ func create_rooms():
 
 		for x in range(r.x, r.x + r.w):
 			for y in range(r.y, r.y + r.h):
-				set_cell(0, Vector2i(x, y), 1, Tiles.GROUND)
-
+				set_cell(0, Vector2i(x, y), ROOM_BUILDER_ID, Tiles.GROUND)
+				
+func draw_edges():
 	# draw edges for the rooms
 	for i in range(rooms.size()):
 		var r = rooms[i]
 		for x in range(r.x, r.x + r.w):
-			set_cell(0, Vector2i(x, r.y - 1), 1, Tiles.ROOF)
-			set_cell(0, Vector2i(x, r.y), 1, Tiles.WALL)
-			set_cell(0, Vector2i(x, r.y + r.h), 1, Tiles.EDGE)
+			if (get_cell_atlas_coords(0, Vector2i(x, r.y - 2)) == Tiles.CORRIDOR):
+				set_cell(0, Vector2i(x, r.y - 1), INTERIOR_ID, Tiles.TOP_DOOR)
+				set_cell(0, Vector2i(x, r.y), INTERIOR_ID, Tiles.BOTTOM_DOOR)
+			else:
+				set_cell(0, Vector2i(x, r.y - 1), ROOM_BUILDER_ID, Tiles.ROOF)
+				set_cell(0, Vector2i(x, r.y), ROOM_BUILDER_ID, Tiles.WALL)
+				set_cell(0, Vector2i(x, r.y + r.h), ROOM_BUILDER_ID, Tiles.EDGE)
 
 		for y in range(r.y, r.y + r.h):
-			set_cell(0, Vector2i(r.x - 1, y), 1, Tiles.LEFT_WALL)
-			set_cell(0, Vector2i(r.x + r.w, y), 1, Tiles.RIGHT_WALL)
+			if (get_cell_atlas_coords(0, Vector2i(r.x - 2, y)) == Tiles.CORRIDOR):
+				set_cell(0, Vector2i(r.x - 1, y), 1, Tiles.GROUND)
+			elif (get_cell_atlas_coords(0, Vector2i(r.x + r.w + 1, y)) == Tiles.CORRIDOR): 
+				set_cell(0, Vector2i(r.x + r.w, y), ROOM_BUILDER_ID, Tiles.GROUND)
+			else:
+				set_cell(0, Vector2i(r.x - 1, y), ROOM_BUILDER_ID, Tiles.LEFT_WALL)
+				set_cell(0, Vector2i(r.x + r.w, y), ROOM_BUILDER_ID, Tiles.RIGHT_WALL)
 
 		## draw corners
-		set_cell(0, Vector2i(r.x - 1, r.y - 1), 1, Tiles.TOP_LEFT)
-		set_cell(0, Vector2i(r.x + r.w, r.y - 1), 1, Tiles.TOP_RIGHT)
-		set_cell(0, Vector2i(r.x - 1, r.y + r.h), 1, Tiles.BOTTOM_LEFT)
-		set_cell(0, Vector2i(r.x + r.w, r.y + r.h), 1, Tiles.BOTTOM_RIGHT)
+		set_cell(0, Vector2i(r.x - 1, r.y - 1), ROOM_BUILDER_ID, Tiles.TOP_LEFT)
+		set_cell(0, Vector2i(r.x + r.w, r.y - 1), ROOM_BUILDER_ID, Tiles.TOP_RIGHT)
+		set_cell(0, Vector2i(r.x - 1, r.y + r.h), ROOM_BUILDER_ID, Tiles.BOTTOM_LEFT)
+		set_cell(0, Vector2i(r.x + r.w, r.y + r.h), ROOM_BUILDER_ID, Tiles.BOTTOM_RIGHT)
 
 func join_rooms():
 	for sister in leaves:
@@ -196,11 +219,11 @@ func connect_leaves(leaf1, leaf2):
 
 	# Vertical corridor
 	if (leaf1.split == 'h'):
-		x -= floor(w/2)+1
+		x -= floor(w / 2) + 1
 		h = abs(leaf1.center.y - leaf2.center.y)
 	else:
 		# Horizontal corridor
-		y -= floor(h/2)+1
+		y -= floor(h / 2) + 1
 		w = abs(leaf1.center.x - leaf2.center.x)
 
 	# Ensure within map
@@ -209,9 +232,9 @@ func connect_leaves(leaf1, leaf2):
 
 	for i in range(x, x + w):
 		for j in range(y, y + h):
-			if (get_cell_atlas_coords(0, Vector2i(i, j)) == Tiles.ROOF):
-				set_cell(0, Vector2i(i, j), 1, Tiles.GROUND)
-
+			if (get_cell_atlas_coords(0, Vector2i(i, j)) == Tiles.EMPTY):
+				set_cell(0, Vector2i(i, j), ROOM_BUILDER_ID, Tiles.CORRIDOR)
+			
 func clear_deadends():
 	var done = false
 
@@ -223,16 +246,16 @@ func clear_deadends():
 
 			var roof_count = check_nearby(cell.x, cell.y)
 			if roof_count == 3:
-				set_cell(0, cell, 1)
+				set_cell(0, cell, 1, Tiles.ROOF)
 				done = false
 
 # check in 4 dirs to see how many tiles are roofs
 func check_nearby(x, y):
 	var count = 0
-	if get_cell_atlas_coords(0, Vector2i(x, y-1))   == Tiles.ROOF:  count += 1
-	if get_cell_atlas_coords(0, Vector2i(x, y+1))   == Tiles.ROOF:  count += 1
-	if get_cell_atlas_coords(0, Vector2i(x-1, y))   == Tiles.ROOF:  count += 1
-	if get_cell_atlas_coords(0, Vector2i(x+1, y))   == Tiles.ROOF:  count += 1
+	if get_cell_atlas_coords(0, Vector2i(x, y - 1)) == Tiles.EMPTY: count += 1
+	if get_cell_atlas_coords(0, Vector2i(x, y + 1)) == Tiles.EMPTY: count += 1
+	if get_cell_atlas_coords(0, Vector2i(x - 1, y)) == Tiles.EMPTY: count += 1
+	if get_cell_atlas_coords(0, Vector2i(x + 1, y)) == Tiles.EMPTY: count += 1
 	return count
 
 func _on_shoes_found():
