@@ -14,8 +14,6 @@ func _ready():
 	tile_map = get_parent().get_node("TileMap")
 	var start_room = tile_map.rooms[0]
 	position = tile_map.map_to_local(start_room.center)
-#	position.x  = screen_size.x/2
-#	position.y  = screen_size.y/2
 	
 
 func _process(delta):
@@ -36,23 +34,9 @@ func _process(delta):
 		$CharacterBody2D.stop()
 	
 	var future_pos = position + velocity * delta
-	print("-AL- player: x:", future_pos.x)
-	print("-AL- player: y:", future_pos.y)
-#	var map_x = future_pos.x/16
-#	var map_y = future_pos.y/16
-#	print("-AL- player: x/16:", map_x)
-#	print("-AL- player: y/16:", map_y)
-	print("-AL- player: to_map:", tile_map.local_to_map(Vector2i(future_pos.x, future_pos.y)))
-	print("-AL- get_cell_atlas_coords player orig X, Y: ", tile_map.get_cell_atlas_coords(0, Vector2i(future_pos.x, future_pos.y)))
-#	if (tile_map.get_cell_atlas_coords(0, Vector2i(future_pos.x, future_pos.y)) != Map.Tiles.WALL):
-#	print("-AL- get_cell_atlas_coords player updated X, Y: ", tile_map.get_cell_atlas_coords(0, Vector2i(map_x, map_y)))
-#	if (tile_map.get_cell_atlas_coords(0, Vector2i(map_x, map_y)) != Map.Tiles.WALL):
-	print("-AL- get_cell_atlas_coords player updated X, Y: ", tile_map.get_cell_atlas_coords(0, tile_map.local_to_map(Vector2i(future_pos.x, future_pos.y))))
 	var tile = tile_map.get_cell_atlas_coords(0, tile_map.local_to_map(Vector2i(future_pos.x, future_pos.y)))
-	if (tile == Map.Tiles.BOTTOM_DOOR || tile == Map.Tiles.CORRIDOR || tile == Map.Tiles.GROUND || tile == Map.Tiles.TOP_DOOR):
-		print("-AL- wall not detected")
+	if (tile == Map.Tiles.BOTTOM_DOOR || tile == Map.Tiles.TOP_DOOR || tile == Map.Tiles.CORRIDOR || tile == Map.Tiles.GROUND):
+		# able to walk on the tile
 		position = future_pos
-	else:
-		print("-AL- wall detected")
 	position.x = clamp(position.x, 0, screen_size.x)
 	position.y = clamp(position.y, 0, screen_size.y)
