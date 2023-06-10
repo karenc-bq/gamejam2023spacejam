@@ -213,6 +213,16 @@ func draw_edges():
 		set_cell(0, Vector2i(r.x + r.w, r.y), ROOM_BUILDER_ID, Tiles.TOP_RIGHT)
 		set_cell(0, Vector2i(r.x, r.y + r.h), ROOM_BUILDER_ID, Tiles.BOTTOM_LEFT)
 		set_cell(0, Vector2i(r.x + r.w, r.y + r.h), ROOM_BUILDER_ID, Tiles.BOTTOM_RIGHT)
+		
+		# clean up side edges
+		var corridor_found = 0
+		for y in range(r.y, r.y + r.h):
+			if (get_cell_atlas_coords(0, Vector2i(r.x + r.w, y)) == Tiles.CORRIDOR):
+				if (corridor_found == 0):
+					corridor_found = 1
+				else:
+					set_cell(0, Vector2i(r.x + r.w, y), 1, Tiles.RIGHT_WALL)
+			
 
 func join_rooms():
 	for sister in leaves:
@@ -241,8 +251,7 @@ func connect_leaves(leaf1, leaf2):
 
 	for i in range(x, x + w):
 		for j in range(y, y + h):
-			if (get_cell_atlas_coords(0, Vector2i(i, j)) == Tiles.EMPTY &&
-				!along_wall(i, j)):
+			if (get_cell_atlas_coords(0, Vector2i(i, j)) == Tiles.EMPTY):
 				set_cell(0, Vector2i(i, j), ROOM_BUILDER_ID, Tiles.CORRIDOR)
 			
 func clear_deadends():
