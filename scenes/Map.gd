@@ -219,6 +219,7 @@ func draw_edges():
 				
 
 		## draw corners
+<<<<<<< Updated upstream
 <<<<<<< HEAD
 		set_cell(0, Vector2i(r.x, r.y), ROOM_BUILDER_ID, Tiles.TOP_LEFT)
 		set_cell(0, Vector2i(r.x + r.w, r.y), ROOM_BUILDER_ID, Tiles.TOP_RIGHT)
@@ -236,21 +237,22 @@ func draw_edges():
 			
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> Stashed changes
 		set_cell(0, Vector2i(r.x - 1, r.y - 1), ROOM_BUILDER_ID, Tiles.TOP_LEFT)
 		set_cell(0, Vector2i(r.x + r.w, r.y - 1), ROOM_BUILDER_ID, Tiles.TOP_RIGHT)
 		set_cell(0, Vector2i(r.x - 1, r.y + r.h), ROOM_BUILDER_ID, Tiles.BOTTOM_LEFT)
 		set_cell(0, Vector2i(r.x + r.w, r.y + r.h), ROOM_BUILDER_ID, Tiles.BOTTOM_RIGHT)
-=======
-		set_cell(0, Vector2i(r.x - 1, r.y - 1), 1, Tiles.TOP_LEFT)
-		set_cell(0, Vector2i(r.x + r.w, r.y - 1), 1, Tiles.TOP_RIGHT)
-		set_cell(0, Vector2i(r.x - 1, r.y + r.h), 1, Tiles.BOTTOM_LEFT)
-		set_cell(0, Vector2i(r.x + r.w, r.y + r.h), 1, Tiles.BOTTOM_RIGHT)
+
 	
 	for i in range(rooms.size()):
 		var r = rooms[i]
 		decorate_room(r)
+<<<<<<< Updated upstream
 >>>>>>> a3c210b (add table to middle of living room)
 >>>>>>> 17dc9d2 (add table to middle of living room)
+=======
+>>>>>>> Stashed changes
 
 func join_rooms():
 	for sister in leaves:
