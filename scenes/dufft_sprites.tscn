@@ -1,0 +1,47 @@
+[gd_scene load_steps=7 format=3 uid="uid://ip07m3xa130q"]
+
+[ext_resource type="Texture2D" uid="uid://so2mjerc4lb2" path="res://assets/characters/Duffy_duck.png" id="1_ogs6o"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1dd8h"]
+atlas = ExtResource("1_ogs6o")
+region = Rect2(35, 0, 35, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yj35g"]
+atlas = ExtResource("1_ogs6o")
+region = Rect2(70, 0, 35, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_63g7c"]
+atlas = ExtResource("1_ogs6o")
+region = Rect2(105, 0, 35, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6bldd"]
+atlas = ExtResource("1_ogs6o")
+region = Rect2(140, 0, 35, 28)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_yr5b3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1dd8h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yj35g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_63g7c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6bldd")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="dufft_sprites" type="CharacterBody2D"]
+
+[node name="CharacterBody2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_yr5b3")
+frame_progress = 0.080332
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
