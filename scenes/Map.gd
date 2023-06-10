@@ -162,7 +162,7 @@ func create_rooms():
 				
 func draw_rooms():
 	var shoeRoom = randi_range(0, rooms.size())
-
+#	shoeRoom = 0 #-AL- remove this line do notttt commit!!!!!!
 	# draw the rooms on the tilemap
 	for i in range(rooms.size()):
 		var r = rooms[i]
