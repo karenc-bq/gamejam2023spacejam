@@ -1,0 +1,45 @@
+[gd_scene load_steps=8 format=3 uid="uid://wa1ytkr2nc41"]
+
+[ext_resource type="Texture2D" uid="uid://cjm41171ref0f" path="res://assets/characters/duffy1.png" id="1_8kqfj"]
+[ext_resource type="Texture2D" uid="uid://ebik0orjylu7" path="res://assets/characters/duffy2.png" id="2_e5mnl"]
+[ext_resource type="Texture2D" uid="uid://i71nbyua7ucr" path="res://assets/characters/duffy3.png" id="3_3ydsf"]
+[ext_resource type="Texture2D" uid="uid://dyhsci0nxa5yq" path="res://assets/characters/duffy4.png" id="4_7cope"]
+[ext_resource type="Texture2D" uid="uid://cfeioca7pge4h" path="res://assets/characters/duffy5.png" id="5_ghhrr"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_yr5b3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_8kqfj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_e5mnl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_3ydsf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_7cope")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_ghhrr")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qymjm"]
+radius = 8.0
+height = 16.0
+
+[node name="dufft_sprites" type="CharacterBody2D"]
+
+[node name="CharacterBody2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.561905, 0.571429)
+sprite_frames = SubResource("SpriteFrames_yr5b3")
+frame = 4
+frame_progress = 0.850907
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_qymjm")
