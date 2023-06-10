@@ -182,27 +182,27 @@ func draw_edges():
 	for i in range(rooms.size()):
 		var r = rooms[i]
 		for x in range(r.x, r.x + r.w):
-			if (get_cell_atlas_coords(0, Vector2i(x, r.y - 2)) == Tiles.CORRIDOR):
-				set_cell(0, Vector2i(x, r.y - 1), INTERIOR_ID, Tiles.TOP_DOOR)
-				set_cell(0, Vector2i(x, r.y), INTERIOR_ID, Tiles.BOTTOM_DOOR)
+			if (get_cell_atlas_coords(0, Vector2i(x, r.y - 1)) == Tiles.CORRIDOR):
+				set_cell(0, Vector2i(x, r.y), INTERIOR_ID, Tiles.TOP_DOOR)
+				set_cell(0, Vector2i(x, r.y + 1), INTERIOR_ID, Tiles.BOTTOM_DOOR)
 			else:
-				set_cell(0, Vector2i(x, r.y - 1), ROOM_BUILDER_ID, Tiles.ROOF)
-				set_cell(0, Vector2i(x, r.y), ROOM_BUILDER_ID, Tiles.WALL)
+				set_cell(0, Vector2i(x, r.y), ROOM_BUILDER_ID, Tiles.ROOF)
+				set_cell(0, Vector2i(x, r.y + 1), ROOM_BUILDER_ID, Tiles.WALL)
 				set_cell(0, Vector2i(x, r.y + r.h), ROOM_BUILDER_ID, Tiles.EDGE)
 
 		for y in range(r.y, r.y + r.h):
-			if (get_cell_atlas_coords(0, Vector2i(r.x - 2, y)) == Tiles.CORRIDOR):
-				set_cell(0, Vector2i(r.x - 1, y), 1, Tiles.GROUND)
-			elif (get_cell_atlas_coords(0, Vector2i(r.x + r.w + 1, y)) == Tiles.CORRIDOR): 
+			if (get_cell_atlas_coords(0, Vector2i(r.x - 1, y)) == Tiles.CORRIDOR):
+				set_cell(0, Vector2i(r.x, y), 1, Tiles.GROUND)
+			elif (get_cell_atlas_coords(0, Vector2i(r.x + r.w, y)) == Tiles.CORRIDOR): 
 				set_cell(0, Vector2i(r.x + r.w, y), ROOM_BUILDER_ID, Tiles.GROUND)
 			else:
-				set_cell(0, Vector2i(r.x - 1, y), ROOM_BUILDER_ID, Tiles.LEFT_WALL)
+				set_cell(0, Vector2i(r.x, y), ROOM_BUILDER_ID, Tiles.LEFT_WALL)
 				set_cell(0, Vector2i(r.x + r.w, y), ROOM_BUILDER_ID, Tiles.RIGHT_WALL)
 
 		## draw corners
-		set_cell(0, Vector2i(r.x - 1, r.y - 1), ROOM_BUILDER_ID, Tiles.TOP_LEFT)
-		set_cell(0, Vector2i(r.x + r.w, r.y - 1), ROOM_BUILDER_ID, Tiles.TOP_RIGHT)
-		set_cell(0, Vector2i(r.x - 1, r.y + r.h), ROOM_BUILDER_ID, Tiles.BOTTOM_LEFT)
+		set_cell(0, Vector2i(r.x, r.y), ROOM_BUILDER_ID, Tiles.TOP_LEFT)
+		set_cell(0, Vector2i(r.x + r.w, r.y), ROOM_BUILDER_ID, Tiles.TOP_RIGHT)
+		set_cell(0, Vector2i(r.x, r.y + r.h), ROOM_BUILDER_ID, Tiles.BOTTOM_LEFT)
 		set_cell(0, Vector2i(r.x + r.w, r.y + r.h), ROOM_BUILDER_ID, Tiles.BOTTOM_RIGHT)
 
 func join_rooms():
@@ -232,7 +232,8 @@ func connect_leaves(leaf1, leaf2):
 
 	for i in range(x, x + w):
 		for j in range(y, y + h):
-			if (get_cell_atlas_coords(0, Vector2i(i, j)) == Tiles.EMPTY):
+			if (get_cell_atlas_coords(0, Vector2i(i, j)) == Tiles.EMPTY &&
+				!along_wall(i, j)):
 				set_cell(0, Vector2i(i, j), ROOM_BUILDER_ID, Tiles.CORRIDOR)
 			
 func clear_deadends():
@@ -242,21 +243,37 @@ func clear_deadends():
 		done = true
 
 		for cell in get_used_cells(0):
-			if get_cell_atlas_coords(0, cell) != Tiles.GROUND: continue
+			if get_cell_atlas_coords(0, cell) != Tiles.CORRIDOR: continue
 
-			var roof_count = check_nearby(cell.x, cell.y)
-			if roof_count == 3:
-				set_cell(0, cell, 1, Tiles.ROOF)
+			var nearby = check_nearby(cell.x, cell.y)
+			if nearby[0] == 3:
+				if (nearby[1] == Tiles.CORRIDOR):
+					set_cell(0, cell, 1, Tiles.ROOF)
+				else:
+					set_cell(0, cell, 1)
 				done = false
 
-# check in 4 dirs to see how many tiles are roofs
+# check in 4 dirs to see how many tiles are empty
 func check_nearby(x, y):
-	var count = 0
-	if get_cell_atlas_coords(0, Vector2i(x, y - 1)) == Tiles.EMPTY: count += 1
-	if get_cell_atlas_coords(0, Vector2i(x, y + 1)) == Tiles.EMPTY: count += 1
-	if get_cell_atlas_coords(0, Vector2i(x - 1, y)) == Tiles.EMPTY: count += 1
-	if get_cell_atlas_coords(0, Vector2i(x + 1, y)) == Tiles.EMPTY: count += 1
-	return count
+	var count: int = 0
+	var non_empty: Vector2i = Tiles.CORRIDOR
+	var sides = [Vector2i(x, y - 1), Vector2i(x, y + 1), Vector2i(x - 1, y), Vector2i(x + 1, y)]
+	for side in sides:
+		if (get_cell_atlas_coords(0, side) == Tiles.EMPTY):
+			count += 1
+		else:
+			non_empty = side
+
+	return [count, non_empty]
+
+func along_wall(x, y):
+	if get_cell_atlas_coords(0, Vector2i(x, y - 1)) == Tiles.GROUND || get_cell_atlas_coords(0, Vector2i(x, y + 1)) == Tiles.GROUND:
+		if get_cell_atlas_coords(0, Vector2i(x - 1, y)) == Tiles.CORRIDOR || get_cell_atlas_coords(0, Vector2i(x + 1, y)) == Tiles.CORRIDOR:
+			return true
+			
+	if get_cell_atlas_coords(0, Vector2i(x - 1, y)) == Tiles.GROUND || get_cell_atlas_coords(0, Vector2i(x + 1, y)) == Tiles.GROUND:
+		if get_cell_atlas_coords(0, Vector2i(x, y + 1)) == Tiles.CORRIDOR || get_cell_atlas_coords(0, Vector2i(x, y - 1)) == Tiles.CORRIDOR:
+			return true
 
 func _on_shoes_found():
 	print("found shoes")
