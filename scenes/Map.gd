@@ -182,8 +182,9 @@ func draw_edges():
 	for i in range(rooms.size()):
 		var r = rooms[i]
 		for x in range(r.x, r.x + r.w):
-			print("-AL-  map x, r.y:" , x, r.y)
-			print("-AL- get_cell_atlas_coords map:" , get_cell_atlas_coords(0, Vector2i(x, r.y - 2)))
+			print("-AL-  map x: ", x)
+			print("-AL-  map r.y: ", r.y)
+			print("-AL- get_cell_atlas_coords map:" , get_cell_atlas_coords(0, Vector2i(x, r.y - 1)))
 			if (get_cell_atlas_coords(0, Vector2i(x, r.y - 1)) == Tiles.CORRIDOR):
 				set_cell(0, Vector2i(x, r.y), INTERIOR_ID, Tiles.TOP_DOOR)
 				set_cell(0, Vector2i(x, r.y + 1), INTERIOR_ID, Tiles.BOTTOM_DOOR)
