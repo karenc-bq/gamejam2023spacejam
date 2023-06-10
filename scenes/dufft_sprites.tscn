@@ -41,7 +41,10 @@ animations = [{
 [node name="dufft_sprites" type="CharacterBody2D"]
 
 [node name="CharacterBody2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-2.98023e-07, -1.07288e-06)
+scale = Vector2(0.457143, 0.571429)
 sprite_frames = SubResource("SpriteFrames_yr5b3")
-frame_progress = 0.080332
+frame = 3
+frame_progress = 0.977784
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

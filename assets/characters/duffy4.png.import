@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://so2mjerc4lb2"
-path="res://.godot/imported/Duffy_duck.png-b5b32632f1885912b6793c13eb5917af.ctex"
+uid="uid://dyhsci0nxa5yq"
+path="res://.godot/imported/duffy4.png-381b5ad2fa2427018fdce5d1d4912c2a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/characters/Duffy_duck.png"
-dest_files=["res://.godot/imported/Duffy_duck.png-b5b32632f1885912b6793c13eb5917af.ctex"]
+source_file="res://assets/characters/duffy4.png"
+dest_files=["res://.godot/imported/duffy4.png-381b5ad2fa2427018fdce5d1d4912c2a.ctex"]
 
 [params]
 
@@ -25,7 +25,7 @@ mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
-process/fix_alpha_border=false
+process/fix_alpha_border=true
 process/premult_alpha=false
 process/normal_map_invert_y=false
 process/hdr_as_srgb=false
