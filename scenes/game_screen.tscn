@@ -1,3 +1,19 @@
-[gd_scene format=3 uid="uid://bsq5rdbyx2lig"]
+[gd_scene load_steps=3 format=3 uid="uid://bsq5rdbyx2lig"]
+
+[ext_resource type="Script" path="res://scenes/game_screen.gd" id="1_0f2hy"]
+[ext_resource type="FontFile" uid="uid://cl1cc658t40si" path="res://assets/fonts/Kaph_Font_1_10/TrueType (.ttf)/Kaph-Regular.ttf" id="2_51c64"]
 
 [node name="game_screen" type="Node2D"]
+script = ExtResource("1_0f2hy")
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="TimerLabel" type="RichTextLabel" parent="."]
+offset_left = 795.0
+offset_top = 62.0
+offset_right = 1170.0
+offset_bottom = 237.0
+theme_override_fonts/normal_font = ExtResource("2_51c64")
+theme_override_font_sizes/normal_font_size = 50
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
