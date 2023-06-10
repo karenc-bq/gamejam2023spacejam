@@ -2,10 +2,10 @@ extends TileMap
 
 const Util = preload("res://scenes/Util.gd")
 
-@export var map_w: int = 115
-@export var map_h: int = 65
-@export var min_room_size: int = 8
-@export_range(0.2, 0.5) var min_room_factor: float = 0.4
+@export var map_w: int = 64
+@export var map_h: int = 40
+@export var min_room_size: int = 9
+@export_range(0.2, 0.5) var min_room_factor: float = 0.45
 
 const FLOOR_TILE = Vector2i(12, 14)
 const CORRIDOR_TILE = Vector2i(12, 6)
@@ -144,13 +144,13 @@ func create_rooms():
 			room.id = leaf_id;
 			room.w  = Util.randi_range(min_room_size, leaf.w) - 1
 			room.h  = Util.randi_range(min_room_size, leaf.h) - 1
-			room.x  = leaf.x + floor((leaf.w-room.w)/2) + 1
-			room.y  = leaf.y + floor((leaf.h-room.h)/2) + 1
+			room.x  = leaf.x + floor((leaf.w - room.w) / 2) + 1
+			room.y  = leaf.y + floor((leaf.h - room.h) / 2) + 1
 			room.split = leaf.split
 
 			room.center = Vector2()
-			room.center.x = floor(room.x + room.w/2)
-			room.center.y = floor(room.y + room.h/2)
+			room.center.x = floor(room.x + room.w / 2)
+			room.center.y = floor(room.y + room.h / 2)
 			rooms.append(room);
 		
 	draw_rooms()
@@ -166,7 +166,7 @@ func draw_rooms():
 		if i == shoeRoom:
 			var shoesArea = Area2D.new()
 			var shoes = Sprite2D.new()
-			shoes.position = Vector2(r.center*16)
+			shoes.position = Vector2(r.center * 32)
 			shoes.texture = load("res://assets/Jordan 1 High Dior.png")
 			shoesArea.monitoring = true
 			shoesArea.area_entered.connect(_on_shoes_found)
@@ -181,23 +181,32 @@ func draw_edges():
 	# draw edges for the rooms
 	for i in range(rooms.size()):
 		var r = rooms[i]
+		
+		# draw top and bottom edges
 		for x in range(r.x, r.x + r.w):
+			set_cell(0, Vector2i(x, r.y + r.h), ROOM_BUILDER_ID, Tiles.EDGE)
+			
 			if (get_cell_atlas_coords(0, Vector2i(x, r.y - 1)) == Tiles.CORRIDOR):
 				set_cell(0, Vector2i(x, r.y), INTERIOR_ID, Tiles.TOP_DOOR)
 				set_cell(0, Vector2i(x, r.y + 1), INTERIOR_ID, Tiles.BOTTOM_DOOR)
 			else:
 				set_cell(0, Vector2i(x, r.y), ROOM_BUILDER_ID, Tiles.ROOF)
 				set_cell(0, Vector2i(x, r.y + 1), ROOM_BUILDER_ID, Tiles.WALL)
-				set_cell(0, Vector2i(x, r.y + r.h), ROOM_BUILDER_ID, Tiles.EDGE)
 
+			if (get_cell_atlas_coords(0, Vector2i(x, r.y + r.h + 1)) == Tiles.CORRIDOR):
+				set_cell(0, Vector2i(x, r.y + r.h), ROOM_BUILDER_ID, Tiles.CORRIDOR)
+		
+		# draw side edges
 		for y in range(r.y, r.y + r.h):
+			set_cell(0, Vector2i(r.x, y), ROOM_BUILDER_ID, Tiles.LEFT_WALL)
+			set_cell(0, Vector2i(r.x + r.w, y), ROOM_BUILDER_ID, Tiles.RIGHT_WALL)
+				
 			if (get_cell_atlas_coords(0, Vector2i(r.x - 1, y)) == Tiles.CORRIDOR):
-				set_cell(0, Vector2i(r.x, y), 1, Tiles.GROUND)
-			elif (get_cell_atlas_coords(0, Vector2i(r.x + r.w, y)) == Tiles.CORRIDOR): 
-				set_cell(0, Vector2i(r.x + r.w, y), ROOM_BUILDER_ID, Tiles.GROUND)
-			else:
-				set_cell(0, Vector2i(r.x, y), ROOM_BUILDER_ID, Tiles.LEFT_WALL)
-				set_cell(0, Vector2i(r.x + r.w, y), ROOM_BUILDER_ID, Tiles.RIGHT_WALL)
+				set_cell(0, Vector2i(r.x, y), 1, Tiles.CORRIDOR)
+			
+			if (get_cell_atlas_coords(0, Vector2i(r.x + r.w + 1, y)) == Tiles.CORRIDOR):
+				set_cell(0, Vector2i(r.x + r.w, y), ROOM_BUILDER_ID, Tiles.CORRIDOR)
+				
 
 		## draw corners
 		set_cell(0, Vector2i(r.x, r.y), ROOM_BUILDER_ID, Tiles.TOP_LEFT)
