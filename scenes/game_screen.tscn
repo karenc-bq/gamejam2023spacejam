@@ -4,8 +4,8 @@
 [ext_resource type="Script" path="res://scenes/Util.gd" id="1_mu87s"]
 [ext_resource type="FontFile" uid="uid://cl1cc658t40si" path="res://assets/fonts/Kaph_Font_1_10/TrueType (.ttf)/Kaph-Regular.ttf" id="2_51c64"]
 [ext_resource type="Script" path="res://scenes/Map.gd" id="2_cw1f6"]
-[ext_resource type="Texture2D" uid="uid://dnua5efswagcd" path="res://assets/interior/16x16/Interiors_free_16x16.png" id="2_ohv3f"]
-[ext_resource type="Texture2D" uid="uid://dhnidok8eviv1" path="res://assets/interior/16x16/Room_Builder_free_16x16.png" id="3_3lkbw"]
+[ext_resource type="Texture2D" uid="uid://cqhexlg5f13ru" path="res://assets/interior/16x16/Interiors_free_16x16.png" id="2_ohv3f"]
+[ext_resource type="Texture2D" uid="uid://daydtweybvo1e" path="res://assets/interior/16x16/Room_Builder_free_16x16.png" id="3_3lkbw"]
 [ext_resource type="PackedScene" uid="uid://wa1ytkr2nc41" path="res://scenes/duffy_sprites.tscn" id="3_tyju2"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_d875n"]
