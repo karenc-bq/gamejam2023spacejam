@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://svorbyjm1f56"]
+
+[node name="starting_screen" type="Node2D"]
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+offset_left = 918.0
+offset_top = 485.0
+offset_right = 1020.0
+offset_bottom = 512.0
+text = "START GAME"
