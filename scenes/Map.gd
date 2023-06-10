@@ -1,11 +1,13 @@
 extends TileMap
 
 const Util = preload("res://scenes/Util.gd")
+const Furniture = preload("res://scenes/furniture.gd")
 
 @export var map_w: int = 64
 @export var map_h: int = 40
 @export var min_room_size: int = 9
 @export_range(0.2, 0.5) var min_room_factor: float = 0.45
+
 
 const FLOOR_TILE = Vector2i(12, 14)
 const CORRIDOR_TILE = Vector2i(12, 6)
@@ -146,6 +148,9 @@ func create_rooms():
 
 		if Util.chance(75):
 			var room = {}
+			var roomType = randi_range(0, 2)
+			room.type = roomType
+			
 			room.id = leaf_id;
 			room.w  = Util.randi_range(min_room_size, leaf.w) - 1
 			room.h  = Util.randi_range(min_room_size, leaf.h) - 1
@@ -214,6 +219,7 @@ func draw_edges():
 				
 
 		## draw corners
+<<<<<<< HEAD
 		set_cell(0, Vector2i(r.x, r.y), ROOM_BUILDER_ID, Tiles.TOP_LEFT)
 		set_cell(0, Vector2i(r.x + r.w, r.y), ROOM_BUILDER_ID, Tiles.TOP_RIGHT)
 		set_cell(0, Vector2i(r.x, r.y + r.h), ROOM_BUILDER_ID, Tiles.BOTTOM_LEFT)
@@ -228,6 +234,23 @@ func draw_edges():
 				else:
 					set_cell(0, Vector2i(r.x + r.w, y), 1, Tiles.RIGHT_WALL)
 			
+=======
+<<<<<<< HEAD
+		set_cell(0, Vector2i(r.x - 1, r.y - 1), ROOM_BUILDER_ID, Tiles.TOP_LEFT)
+		set_cell(0, Vector2i(r.x + r.w, r.y - 1), ROOM_BUILDER_ID, Tiles.TOP_RIGHT)
+		set_cell(0, Vector2i(r.x - 1, r.y + r.h), ROOM_BUILDER_ID, Tiles.BOTTOM_LEFT)
+		set_cell(0, Vector2i(r.x + r.w, r.y + r.h), ROOM_BUILDER_ID, Tiles.BOTTOM_RIGHT)
+=======
+		set_cell(0, Vector2i(r.x - 1, r.y - 1), 1, Tiles.TOP_LEFT)
+		set_cell(0, Vector2i(r.x + r.w, r.y - 1), 1, Tiles.TOP_RIGHT)
+		set_cell(0, Vector2i(r.x - 1, r.y + r.h), 1, Tiles.BOTTOM_LEFT)
+		set_cell(0, Vector2i(r.x + r.w, r.y + r.h), 1, Tiles.BOTTOM_RIGHT)
+	
+	for i in range(rooms.size()):
+		var r = rooms[i]
+		decorate_room(r)
+>>>>>>> a3c210b (add table to middle of living room)
+>>>>>>> 17dc9d2 (add table to middle of living room)
 
 func join_rooms():
 	for sister in leaves:
@@ -308,3 +331,14 @@ func along_wall(x, y):
 func _on_shoes_found():
 	print("found shoes")
 	pass
+
+func decorate_room(room):
+	if room.type == 0:
+		print("found living room")
+		set_cell(1, Vector2i(room.center.x, room.center.y), 3, Furniture.TABLE_TOP_LEFT)
+		set_cell(1, Vector2i(room.center.x + 1, room.center.y), 3, Furniture.TABLE_TOP_MIDDLE)
+		set_cell(1, Vector2i(room.center.x + 2, room.center.y), 3, Furniture.TABLE_TOP_RIGHT)
+		set_cell(1, Vector2i(room.center.x, room.center.y + 1), 3, Furniture.TABLE_BOTTOM_LEFT)
+		set_cell(1, Vector2i(room.center.x + 1, room.center.y + 1), 3, Furniture.TABLE_BOTTOM_MIDDLE)
+		set_cell(1, Vector2i(room.center.x + 2, room.center.y + 1), 3, Furniture.TABLE_BOTTOM_RIGHT)
+		

@@ -1435,6 +1435,13 @@ tile_set = SubResource("TileSet_kawa3")
 cell_quadrant_size = 32
 format = 2
 layer_0/name = "background"
+layer_1/name = "furniture"
+layer_1/enabled = true
+layer_1/modulate = Color(1, 1, 1, 1)
+layer_1/y_sort_enabled = false
+layer_1/y_sort_origin = 0
+layer_1/z_index = 1
+layer_1/tile_data = PackedInt32Array()
 script = ExtResource("2_cw1f6")
 min_room_factor = 0.5
 

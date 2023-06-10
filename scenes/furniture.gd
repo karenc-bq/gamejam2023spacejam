@@ -1,0 +1,6 @@
+const TABLE_TOP_LEFT = Vector2i(7, 13)
+const TABLE_TOP_MIDDLE = Vector2i(8, 13)
+const TABLE_TOP_RIGHT = Vector2i(9, 13)
+const TABLE_BOTTOM_LEFT = Vector2i(7, 14)
+const TABLE_BOTTOM_MIDDLE = Vector2i(8, 14)
+const TABLE_BOTTOM_RIGHT = Vector2i(9, 14)
