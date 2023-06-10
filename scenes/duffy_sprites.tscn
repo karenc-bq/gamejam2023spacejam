@@ -33,7 +33,7 @@ animations = [{
 radius = 8.0
 height = 16.0
 
-[node name="dufft_sprites" type="CharacterBody2D"]
+[node name="duffy_sprites" type="CharacterBody2D"]
 
 [node name="CharacterBody2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.561905, 0.571429)
