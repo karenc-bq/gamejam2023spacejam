@@ -1,28 +1,28 @@
 [gd_scene load_steps=8 format=3 uid="uid://wa1ytkr2nc41"]
 
-[ext_resource type="Texture2D" uid="uid://cjm41171ref0f" path="res://assets/characters/duffy1.png" id="1_vhnm0"]
-[ext_resource type="Texture2D" uid="uid://ebik0orjylu7" path="res://assets/characters/duffy2.png" id="2_8jho4"]
-[ext_resource type="Texture2D" uid="uid://i71nbyua7ucr" path="res://assets/characters/duffy3.png" id="3_47m7s"]
-[ext_resource type="Texture2D" uid="uid://dyhsci0nxa5yq" path="res://assets/characters/duffy4.png" id="4_8ngov"]
-[ext_resource type="Texture2D" uid="uid://cfeioca7pge4h" path="res://assets/characters/duffy5.png" id="5_36b1n"]
+[ext_resource type="Texture2D" uid="uid://cjm41171ref0f" path="res://assets/characters/duffy1.png" id="1_8kqfj"]
+[ext_resource type="Texture2D" uid="uid://ebik0orjylu7" path="res://assets/characters/duffy2.png" id="2_e5mnl"]
+[ext_resource type="Texture2D" uid="uid://i71nbyua7ucr" path="res://assets/characters/duffy3.png" id="3_3ydsf"]
+[ext_resource type="Texture2D" uid="uid://dyhsci0nxa5yq" path="res://assets/characters/duffy4.png" id="4_7cope"]
+[ext_resource type="Texture2D" uid="uid://cfeioca7pge4h" path="res://assets/characters/duffy5.png" id="5_ghhrr"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_yr5b3"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_vhnm0")
+"texture": ExtResource("1_8kqfj")
 }, {
 "duration": 1.0,
-"texture": ExtResource("2_8jho4")
+"texture": ExtResource("2_e5mnl")
 }, {
 "duration": 1.0,
-"texture": ExtResource("3_47m7s")
+"texture": ExtResource("3_3ydsf")
 }, {
 "duration": 1.0,
-"texture": ExtResource("4_8ngov")
+"texture": ExtResource("4_7cope")
 }, {
 "duration": 1.0,
-"texture": ExtResource("5_36b1n")
+"texture": ExtResource("5_ghhrr")
 }],
 "loop": true,
 "name": &"default",
