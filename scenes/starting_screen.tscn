@@ -1,10 +1,37 @@
-[gd_scene format=3 uid="uid://svorbyjm1f56"]
+[gd_scene load_steps=3 format=3 uid="uid://svorbyjm1f56"]
+
+[ext_resource type="Script" path="res://scenes/starting_screen.gd" id="1_l651b"]
+[ext_resource type="FontFile" uid="uid://cl1cc658t40si" path="res://assets/fonts/Kaph_Font_1_10/TrueType (.ttf)/Kaph-Regular.ttf" id="2_n7emn"]
 
 [node name="starting_screen" type="Node2D"]
+script = ExtResource("1_l651b")
+
+[node name="start_button" type="Button" parent="."]
+offset_left = 880.0
+offset_top = 384.0
+offset_right = 1104.0
+offset_bottom = 448.0
+theme_override_fonts/font = ExtResource("2_n7emn")
+theme_override_font_sizes/font_size = 20
+text = "START GAME"
+
+[node name="quit_button" type="Button" parent="."]
+offset_left = 880.0
+offset_top = 512.0
+offset_right = 1104.0
+offset_bottom = 576.0
+theme_override_fonts/font = ExtResource("2_n7emn")
+theme_override_font_sizes/font_size = 20
+text = "QUIT"
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
-offset_left = 918.0
-offset_top = 485.0
-offset_right = 1020.0
-offset_bottom = 512.0
-text = "START GAME"
+offset_left = 896.0
+offset_top = 240.0
+offset_right = 1128.0
+offset_bottom = 304.0
+theme_override_fonts/normal_font = ExtResource("2_n7emn")
+theme_override_font_sizes/normal_font_size = 50
+text = "SHOES"
+
+[connection signal="pressed" from="start_button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="quit_button" to="." method="_on_quit_button_pressed"]
