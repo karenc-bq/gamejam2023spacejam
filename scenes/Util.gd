@@ -17,3 +17,4 @@ static func chance(num):
 # returns random int between low and high
 static func randi_range(low, high):
 	return floor(randf_range(low, high))
+	

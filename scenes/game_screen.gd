@@ -7,7 +7,7 @@ var minutes = 1
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	timer = Timer.new()
-	timer.connect("timeout", _on_timer_timeout) 
+	timer.connect("timeout", _on_timer_timeout)
 	timer.set_wait_time(1) # value is in seconds
 	add_child(timer)
 	timer.start()
@@ -32,5 +32,5 @@ func _on_timer_timeout():
 	
 	$TimerLabel.set_text(str(minutes, " : ", secondsString))
 	
-	if minutes == 0 && seconds == 58:
+	if minutes == 0 && seconds == 5:
 		get_tree().change_scene_to_file("res://scenes/end_screen.tscn")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://ba14vcjjfbdy1"]
+[gd_scene load_steps=3 format=3 uid="uid://du41khmf6yy86"]
 
 [ext_resource type="FontFile" uid="uid://cl1cc658t40si" path="res://assets/fonts/Kaph_Font_1_10/TrueType (.ttf)/Kaph-Regular.ttf" id="1_pqtux"]
 [ext_resource type="Script" path="res://scenes/win_screen.gd" id="1_ute40"]

@@ -1,6 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://bsq5rdbyx2lig"]
+[gd_scene load_steps=12 format=3 uid="uid://bsq5rdbyx2lig"]
 
+[ext_resource type="Script" path="res://scenes/game_screen.gd" id="1_0f2hy"]
 [ext_resource type="Script" path="res://scenes/Util.gd" id="1_mu87s"]
+[ext_resource type="FontFile" uid="uid://cl1cc658t40si" path="res://assets/fonts/Kaph_Font_1_10/TrueType (.ttf)/Kaph-Regular.ttf" id="2_51c64"]
 [ext_resource type="Script" path="res://scenes/Map.gd" id="2_cw1f6"]
 [ext_resource type="Texture2D" uid="uid://dnua5efswagcd" path="res://assets/interior/16x16/Interiors_free_16x16.png" id="2_ohv3f"]
 [ext_resource type="Texture2D" uid="uid://dhnidok8eviv1" path="res://assets/interior/16x16/Room_Builder_free_16x16.png" id="3_3lkbw"]
@@ -1379,5 +1381,15 @@ tile_set = SubResource("TileSet_nxxh7")
 format = 2
 layer_0/name = "background"
 script = ExtResource("2_cw1f6")
-min_room_size = 9
-min_room_factor = 0.5
+
+[node name="TimerNode" type="Node2D" parent="."]
+z_index = 1000
+script = ExtResource("1_0f2hy")
+
+[node name="TimerLabel" type="RichTextLabel" parent="TimerNode"]
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 328.0
+offset_bottom = 160.0
+theme_override_fonts/normal_font = ExtResource("2_51c64")
+theme_override_font_sizes/normal_font_size = 50
