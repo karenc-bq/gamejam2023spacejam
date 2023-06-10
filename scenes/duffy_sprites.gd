@@ -49,7 +49,7 @@ func _process(delta):
 #	if (tile_map.get_cell_atlas_coords(0, Vector2i(map_x, map_y)) != Map.Tiles.WALL):
 	print("-AL- get_cell_atlas_coords player updated X, Y: ", tile_map.get_cell_atlas_coords(0, tile_map.local_to_map(Vector2i(future_pos.x, future_pos.y))))
 	var tile = tile_map.get_cell_atlas_coords(0, tile_map.local_to_map(Vector2i(future_pos.x, future_pos.y)))
-	if (tile == Map.Tiles.BOTTOM_DOOR || tile == Map.Tiles.CORRIDOR || tile == Map.Tiles.GROUND):
+	if (tile == Map.Tiles.BOTTOM_DOOR || tile == Map.Tiles.CORRIDOR || tile == Map.Tiles.GROUND || tile == Map.Tiles.TOP_DOOR):
 		print("-AL- wall not detected")
 		position = future_pos
 	else:
