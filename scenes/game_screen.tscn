@@ -5,7 +5,7 @@
 [ext_resource type="FontFile" uid="uid://cl1cc658t40si" path="res://assets/fonts/Kaph_Font_1_10/TrueType (.ttf)/Kaph-Regular.ttf" id="2_51c64"]
 [ext_resource type="Texture2D" uid="uid://c1m3e61fxknei" path="res://assets/interior/32x32/Room_Builder_free_32x32.png" id="2_345ac"]
 [ext_resource type="Script" path="res://scenes/Map.gd" id="2_cw1f6"]
-[ext_resource type="Texture2D" path="res://assets/color_grid.png" id="3_ekvyx"]
+[ext_resource type="Texture2D" uid="uid://54kxocb8rv6d" path="res://assets/color_grid.png" id="3_ekvyx"]
 [ext_resource type="Texture2D" uid="uid://cogiqtvqwt3xj" path="res://assets/interior/32x32/Interiors_free_32x32.png" id="3_k254p"]
 [ext_resource type="PackedScene" uid="uid://wa1ytkr2nc41" path="res://scenes/duffy_sprites.tscn" id="3_tyju2"]
 [ext_resource type="Texture2D" uid="uid://bpbo5h1c7hv5u" path="res://assets/Jordan 1 High Dior.png" id="5_hjov2"]
@@ -1482,6 +1482,13 @@ layer_2/y_sort_enabled = false
 layer_2/y_sort_origin = 0
 layer_2/z_index = 0
 layer_2/tile_data = PackedInt32Array()
+layer_3/name = "spawn"
+layer_3/enabled = true
+layer_3/modulate = Color(1, 1, 1, 1)
+layer_3/y_sort_enabled = false
+layer_3/y_sort_origin = 0
+layer_3/z_index = 0
+layer_3/tile_data = PackedInt32Array()
 script = ExtResource("2_cw1f6")
 min_room_factor = 0.5
 

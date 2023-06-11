@@ -18,20 +18,11 @@ var alerted = false
 func _ready():
 	screen_size = get_viewport_rect().size
 	tile_map = get_parent().get_node("TileMap")
-	var foundSpawnSpot = false
 	
-	while foundSpawnSpot == false:
-		var start_room_idx = randi_range(0, tile_map.rooms.size() - 1)
-		var start_room = tile_map.rooms[start_room_idx]
-		var isFurniture = false
-		if tile_map.get_node("shoesArea").get_node("shoes").position != start_room.center:
-			for i in range(Map.Furniture.FURNITURE_TILES.size()):
-				if tile_map.get_cell_atlas_coords(Map.FOREGROUND_LAYER, start_room.center) == Map.Furniture.FURNITURE_TILES[i]:
-					isFurniture = true
-					break
-		if !isFurniture:
-			foundSpawnSpot = true
-			position = tile_map.map_to_local(start_room.center)
+	for i in range(tile_map.rooms.size()):
+		var currentRoom = tile_map.rooms[i]
+		if tile_map.get_cell_atlas_coords(Map.SPAWN_LAYER, currentRoom.center) == Map.Tiles.GROUND:
+			position = tile_map.map_to_local(currentRoom.center)
 
 
 func _process(delta):
