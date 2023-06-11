@@ -5,6 +5,8 @@ This game was built for Improving Vancouver Game Jam 2023
 
 You are Daffy Duck. You are on a mission to enter Michael Jordan's house to retrieve his basketball shoes so you can defeat space aliens in a game of hoops and save Michael Jordan's NBA pals.
 
+[Movie Scene](https://www.youtube.com/watch?v=Zyu8kAe3tnU&ab_channel=CalandraRussell-Lee)
+
 ## Rules
 1. you have to find shoes from the maze
 2. you have to leave through the exit after you found the shoes
