@@ -20,9 +20,13 @@ const BOTTOM_LEFT_TILE = Vector2i(11, 3)
 const BOTTOM_RIGHT_TILE = Vector2i(13, 3)
 const TOP_DOOR_TILE = Vector2i(12, 24)
 const BOTTOM_DOOR_TILE = Vector2i(12, 25)
+const EXIT_TILE = Vector2i(12, 0)
 
 const ROOM_BUILDER_ID = 1
 const INTERIOR_ID = 3
+
+var exit: Vector2i
+var deadends = []
 
 const Tiles = { 
 	"GROUND": FLOOR_TILE,
@@ -38,6 +42,7 @@ const Tiles = {
 	"BOTTOM_RIGHT": BOTTOM_RIGHT_TILE,
 	"TOP_DOOR": TOP_DOOR_TILE,
 	"BOTTOM_DOOR": BOTTOM_DOOR_TILE,
+	"EXIT": EXIT_TILE,
 	"EMPTY" : Vector2i(-1 ,-1)
 }
 
@@ -264,10 +269,15 @@ func clear_deadends():
 			if get_cell_atlas_coords(0, cell) != Tiles.CORRIDOR: continue
 
 			var nearby = check_nearby(cell.x, cell.y)
-			if nearby[0] == 3 || next_to_corner(cell):
+			if nearby[0] == 3 || next_to_corner(nearby):
 				set_cell(0, cell, 1, Tiles.ROOF)
+				deadends.append(cell)
 				done = false
-
+	
+	if (deadends.size() > 1 && exit != null):
+		exit = deadends[Util.randi_range(0, deadends.size() - 1)]
+		set_cell(0, exit, 1, Tiles.EXIT)
+	
 # check in 4 dirs to see how many tiles are empty
 func check_nearby(x, y):
 	var count: int = 0
@@ -277,14 +287,14 @@ func check_nearby(x, y):
 		if (get_cell_atlas_coords(0, side) == Tiles.EMPTY):
 			count += 1
 		else:
-			non_empty = side
+			non_empty = get_cell_atlas_coords(0, side)
+			print(non_empty)
 
 	return [count, non_empty]
 
 func next_to_corner(nearby):
 	var edges = [Tiles.TOP_LEFT, Tiles.TOP_RIGHT, Tiles.BOTTOM_LEFT, Tiles.BOTTOM_RIGHT]
-	return (nearby[0] == 2 && edges.has(nearby[1]))
-
+	return edges.has(nearby[1])
 
 func along_wall(x, y):
 	if get_cell_atlas_coords(0, Vector2i(x, y - 1)) == Tiles.GROUND || get_cell_atlas_coords(0, Vector2i(x, y + 1)) == Tiles.GROUND:
