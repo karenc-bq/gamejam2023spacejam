@@ -1,13 +1,14 @@
-[gd_scene load_steps=17 format=3 uid="uid://bsq5rdbyx2lig"]
+[gd_scene load_steps=18 format=3 uid="uid://bsq5rdbyx2lig"]
 
 [ext_resource type="Script" path="res://scenes/game_screen.gd" id="1_0f2hy"]
 [ext_resource type="Script" path="res://scenes/Util.gd" id="1_mu87s"]
-[ext_resource type="FontFile" uid="uid://cl1cc658t40si" path="res://assets/fonts/Kaph_Font_1_10/TrueType (.ttf)/Kaph-Regular.ttf" id="2_51c64"]
 [ext_resource type="Texture2D" uid="uid://c1m3e61fxknei" path="res://assets/interior/32x32/Room_Builder_free_32x32.png" id="2_345ac"]
 [ext_resource type="Script" path="res://scenes/Map.gd" id="2_cw1f6"]
+[ext_resource type="Texture2D" uid="uid://bnhu6lbvfxktt" path="res://assets/sheet_white1x.png" id="2_eqv50"]
 [ext_resource type="Texture2D" uid="uid://54kxocb8rv6d" path="res://assets/color_grid.png" id="3_ekvyx"]
 [ext_resource type="Texture2D" uid="uid://cogiqtvqwt3xj" path="res://assets/interior/32x32/Interiors_free_32x32.png" id="3_k254p"]
 [ext_resource type="PackedScene" uid="uid://wa1ytkr2nc41" path="res://scenes/duffy_sprites.tscn" id="3_tyju2"]
+[ext_resource type="FontFile" uid="uid://3dwi5c37quoh" path="res://assets/fonts/Lithos Black Regular.otf" id="4_abmsc"]
 [ext_resource type="Texture2D" uid="uid://bpbo5h1c7hv5u" path="res://assets/Jordan 1 High Dior.png" id="5_hjov2"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_62qg0"]
@@ -1449,7 +1450,17 @@ script = ExtResource("1_mu87s")
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 2
 
+[node name="TextureButton" type="TextureButton" parent="CanvasLayer"]
+offset_left = 1952.0
+offset_top = 32.0
+offset_right = 2008.0
+offset_bottom = 88.0
+texture_normal = ExtResource("2_eqv50")
+ignore_texture_size = true
+stretch_mode = 1
+
 [node name="CanvasGroup" type="CanvasGroup" parent="CanvasLayer"]
+visible = false
 clip_children = 1
 z_index = 10
 material = SubResource("CanvasItemMaterial_62qg0")
@@ -1464,7 +1475,7 @@ offset_left = 24.0
 offset_top = 24.0
 offset_right = 328.0
 offset_bottom = 160.0
-theme_override_fonts/normal_font = ExtResource("2_51c64")
+theme_override_fonts/normal_font = ExtResource("4_abmsc")
 theme_override_font_sizes/normal_font_size = 50
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
