@@ -24,10 +24,11 @@ func _ready():
 		var start_room_idx = randi_range(0, tile_map.rooms.size() - 1)
 		var start_room = tile_map.rooms[start_room_idx]
 		var isFurniture = false
-		for i in range(Map.Furniture.FURNITURE_TILES.size()):
-			if tile_map.get_cell_atlas_coords(Map.FOREGROUND_LAYER, start_room.center) == Map.Furniture.FURNITURE_TILES[i]:
-				isFurniture = true
-				break
+		if tile_map.get_node("shoesArea").get_node("shoes").position != start_room.center:
+			for i in range(Map.Furniture.FURNITURE_TILES.size()):
+				if tile_map.get_cell_atlas_coords(Map.FOREGROUND_LAYER, start_room.center) == Map.Furniture.FURNITURE_TILES[i]:
+					isFurniture = true
+					break
 		if !isFurniture:
 			foundSpawnSpot = true
 			position = tile_map.map_to_local(start_room.center)
@@ -75,7 +76,6 @@ func _process(delta):
 		gotShoes = true
 		shoes.hide()
 		shoesAlert = true
-	
 
 	
 	if (tile_map.get_cell_atlas_coords(0, tile_map.local_to_map(Vector2i(position.x, position.y))) == Map.Tiles.EXIT):
