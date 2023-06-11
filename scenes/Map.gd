@@ -411,7 +411,7 @@ func checkFurnitureCorner(room, width, length):
 			if right == Tiles.CORRIDOR || right == Tiles.BOTTOM_DOOR || get_cell_atlas_coords(FOREGROUND_LAYER, Vector2i(startX + width, startY + i)) != Vector2i(-1, -1):
 				areaClear = false
 				break
-			if get_cell_atlas_coords(FOREGROUND_LAYER, Vector2i(startX + width - 1, startY + i)) != Vector2i(-1, -1):
+			if get_cell_atlas_coords(FOREGROUND_LAYER, Vector2i(startX + width - 2, startY + i)) != Vector2i(-1, -1):
 				areaClear = false
 				break
 		

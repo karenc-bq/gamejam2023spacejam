@@ -54,12 +54,12 @@ const FIREPLACE_2_MIDDLE_RIGHT = Vector2i(10, 87)
 const FIREPLACE_2_BOTTOM_LEFT = Vector2i(9, 88)
 const FIREPLACE_2_BOTTOM_RIGHT = Vector2i(10, 88)
 
-const FIREPLACE_3_TOP_LEFT = Vector2i(14, 84)
-const FIREPLACE_3_TOP_RIGHT = Vector2i(15, 84)
-const FIREPLACE_3_MIDDLE_LEFT = Vector2i(14, 85)
-const FIREPLACE_3_MIDDLE_RIGHT = Vector2i(15, 85)
-const FIREPLACE_3_BOTTOM_LEFT = Vector2i(14, 86)
-const FIREPLACE_3_BOTTOM_RIGHT = Vector2i(15, 86)
+const FIREPLACE_3_TOP_LEFT = Vector2i(14, 86)
+const FIREPLACE_3_TOP_RIGHT = Vector2i(15, 86)
+const FIREPLACE_3_MIDDLE_LEFT = Vector2i(14, 84)
+const FIREPLACE_3_MIDDLE_RIGHT = Vector2i(15, 84)
+const FIREPLACE_3_BOTTOM_LEFT = Vector2i(14, 85)
+const FIREPLACE_3_BOTTOM_RIGHT = Vector2i(15, 85)
 
 const BOOKSHELF_1_TOP_LEFT = Vector2i(10, 68)
 const BOOKSHELF_1_TOP_RIGHT = Vector2i(11, 68)
@@ -94,6 +94,14 @@ const ART_5_TOP = Vector2i(0, 74)
 const ART_5_BOTTOM = Vector2i(0, 75)
 const ART_6_TOP = Vector2i(0, 76)
 const ART_6_BOTTOM = Vector2i(0, 77)
+const GLOBE_TOP = Vector2i(12, 66)
+const GLOBE_BOTTOM = Vector2i(12, 67)
+const TABLE_1_TOP = Vector2i(0, 57)
+const TABLE_1_BOTTOM = Vector2i(0, 58)
+const CHAIR_1_TOP = Vector2i(12, 62)
+const CHAIR_1_BOTTOM = Vector2i(12, 63)
+const CHAIR_2_TOP = Vector2i(13, 62)
+const CHAIR_2_BOTTOM = Vector2i(13, 63)
 
 const MIRROR_1_TOP = Vector2i(3, 66)
 const MIRROR_1_BOTTOM = Vector2i(3, 67)
@@ -168,7 +176,7 @@ static func get_carpets():
 		CARPET_1_TOP_RIGHT,
 		CARPET_1_BOTTOM_LEFT,
 		CARPET_1_BOTTOM_MIDDLE,
-		CARPET_1_BOTTOM_RIGHT,	
+		CARPET_1_BOTTOM_RIGHT,
 	)
 
 	var CARPET_2 = RectObject.new(
@@ -328,6 +336,38 @@ static func get_wall_art():
 		null,
 		null,
 		MIRROR_3_BOTTOM,
+	)
+
+	var GLOBE = WallDeco.new(
+		null,
+		GLOBE_TOP,
+		null,
+		null,
+		GLOBE_BOTTOM,
+	)
+
+	var TABLE = WallDeco.new(
+		null,
+		TABLE_1_TOP,
+		null,
+		null,
+		TABLE_1_BOTTOM,
+	)
+
+	var CHAIR_1 = WallDeco.new(
+		null,
+		CHAIR_1_TOP,
+		null,
+		null,
+		CHAIR_1_BOTTOM,
+	)
+
+	var CHAIR_2 = WallDeco.new(
+		null,
+		CHAIR_2_TOP,
+		null,
+		null,
+		CHAIR_2_BOTTOM,
 	)
 	
 	return [ART_1, ART_2, ART_3, ART_4, ART_5, ART_6, MIRROR_1, MIRROR_2, MIRROR_3]
