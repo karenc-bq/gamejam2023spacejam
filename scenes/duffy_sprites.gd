@@ -14,12 +14,14 @@ var tile_map
 var gotShoes = false
 var shoesAlert = false
 var alerted = false
+var enteredRooms = []
 
 func _ready():
 	screen_size = get_viewport_rect().size
 	tile_map = get_parent().get_node("TileMap")
 	
 	for i in range(tile_map.rooms.size()):
+		enteredRooms.append(false)
 		var currentRoom = tile_map.rooms[i]
 		if tile_map.get_cell_atlas_coords(Map.SPAWN_LAYER, currentRoom.center) == Map.Tiles.GROUND:
 			position = tile_map.map_to_local(currentRoom.center)
@@ -56,6 +58,12 @@ func _process(delta):
 		# able to walk on the tile
 		if !isFurniture:
 			position = future_pos
+			
+			if tile == Map.Tiles.GROUND:
+				for i in range(enteredRooms.size()):
+					var room = tile_map.rooms[i]
+					if enteredRooms[i] == false && position.x <= (room.x * 32 + room.w * 32) && position.x >= room.x * 32 && position.y <= (room.y * 32 + room.h * 32) && position.y >= room.y * 32:
+						enteredRooms[i] = true
 	
 	position.x = clamp(position.x, 0, screen_size.x)
 	position.y = clamp(position.y, 0, screen_size.y)
