@@ -182,7 +182,7 @@ func draw_rooms():
 		var dogInRoom = randi_range(1, 100)
 		if dogInRoom >= 40 && i != shoeRoom:
 			var dogX = randi_range(r.x + 2, r.x + r.w - 2)
-			var dogY = randi_range(r.y + 2, r.y + r.h - 2)
+			var dogY = randi_range(r.y + 3, r.y + r.h - 2)
 			var dog = load("res://scenes/dog.tscn")
 			var newDog = dog.instantiate()
 			newDog.position = Vector2(dogX * 32, dogY * 32)
