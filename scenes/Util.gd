@@ -17,3 +17,6 @@ static func chance(num):
 # returns random int between low and high
 static func randi_range(low, high):
 	return floor(randf_range(low, high))
+
+func _on_music_button_pressed():
+	$"audio".stream_paused = !$"audio".stream_paused
