@@ -6,6 +6,7 @@ extends Area2D
 signal gotShoe
 
 const Map = preload("res://scenes/Map.gd")
+const Furniture = preload("res://scenes/furniture.gd")
 
 @export var speed = 400 # How fast the player will move (pixels/sec).
 var screen_size # Size of the game window.
@@ -67,7 +68,6 @@ func _process(delta):
 	
 	if (tile_map.get_cell_atlas_coords(0, tile_map.local_to_map(Vector2i(position.x, position.y))) == Map.Tiles.EXIT):
 		if (gotShoes):
-			# TODO logic for game win
 			OS.alert('You have found the SHOES and exit, you win.', 'Exit')
 			alerted = true
 			get_tree().change_scene_to_file("res://scenes/end_screen.tscn")
