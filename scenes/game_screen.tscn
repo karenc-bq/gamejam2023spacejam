@@ -10,7 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://cogiqtvqwt3xj" path="res://assets/interior/32x32/Interiors_free_32x32.png" id="3_k254p"]
 [ext_resource type="PackedScene" uid="uid://wa1ytkr2nc41" path="res://scenes/duffy_sprites.tscn" id="3_tyju2"]
 [ext_resource type="Texture2D" uid="uid://bpbo5h1c7hv5u" path="res://assets/Jordan 1 High Dior.png" id="5_hjov2"]
-[ext_resource type="AudioStream" uid="uid://45jw6vd8ejkk" path="res://assets/soundtracks/Space Jam Theme Song.wav" id="10_vwwhr"]
+[ext_resource type="AudioStream" uid="uid://bjpgvueahdj8v" path="res://assets/soundtracks/Space Jam Theme Song.wav" id="10_vwwhr"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_62qg0"]
 blend_mode = 1

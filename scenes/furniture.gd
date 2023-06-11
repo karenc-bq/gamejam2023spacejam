@@ -110,6 +110,9 @@ const MIRROR_2_BOTTOM = Vector2i(3, 69)
 const MIRROR_3_TOP = Vector2i(3, 70)
 const MIRROR_3_BOTTOM = Vector2i(3, 71)
 
+const LAMP_UP = Vector2i(15, 57)
+const LAMP_DOWN = Vector2i(15, 58)
+
 const FURNITURE_TILES = [
 	TABLE_TOP_LEFT,
 	TABLE_TOP_MIDDLE,
@@ -168,7 +171,7 @@ static func get_couches():
 		W_COUCH_BOTTOM_RIGHT
 	)
 	return [BLUE_COUCH, WHITE_COUCH, BROWN_COUCH]
-
+	
 static func get_carpets():
 	var CARPET_1 = RectObject.new(
 		CARPET_1_TOP_LEFT,

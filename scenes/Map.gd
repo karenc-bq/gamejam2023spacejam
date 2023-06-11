@@ -201,6 +201,7 @@ func draw_rooms():
 				newDog.position = Vector2(dogX * 32, dogY * 32)
 				add_child(newDog)
 				newDog.add_to_group("dogs")
+				set_cell(FOREGROUND_LAYER, Vector2i(dogX, dogY), ROOM_BUILDER_ID, Vector2i(-2, -2))
 			
 			var shoeX = randi_range(r.x, r.x + r.w)
 			var shoeY = randi_range(r.y, r.y + r.h)
@@ -392,6 +393,15 @@ func decorate_room(room):
 	if (get_cell_atlas_coords(BACKGROUND_LAYER, Vector2i(random_wall, room.y)) == Tiles.ROOF && get_cell_atlas_coords(FOREGROUND_LAYER, Vector2i(random_wall, room.y + 1)) == Vector2i(-1, -1)):
 		set_cell(FOREGROUND_LAYER, Vector2i(random_wall, room.y), INTERIOR_ID, wall_art_variation.get_top_middle())
 		set_cell(FOREGROUND_LAYER, Vector2i(random_wall, room.y + 1), INTERIOR_ID, wall_art_variation.get_middle_middle())
+		
+	var lampX = randi_range(room.x + 1, room.x + room.w - 1)
+	var lampY = randi_range(room.y + 3, room.y + room.h - 3)
+	while get_cell_atlas_coords(FOREGROUND_LAYER, Vector2i(lampX, lampY)) != Vector2i(-1, -1) || get_cell_atlas_coords(FOREGROUND_LAYER, Vector2i(lampX, lampY + 1)) != Vector2i(-1, -1):
+		lampX = randi_range(room.x + 1, room.x + room.w - 1)
+		lampY = randi_range(room.y + 3, room.y + room.h - 3)
+	set_cell(FOREGROUND_LAYER, Vector2i(lampX, lampY), INTERIOR_ID, Furniture.LAMP_UP)
+	set_cell(FOREGROUND_LAYER, Vector2i(lampX, lampY + 1), INTERIOR_ID, Furniture.LAMP_DOWN)
+	
 	
 func checkFurnitureCorner(room, width, length):
 	var startX = room.x + 2
