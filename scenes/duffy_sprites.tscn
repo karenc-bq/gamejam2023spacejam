@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://wa1ytkr2nc41"]
+[gd_scene load_steps=11 format=3 uid="uid://wa1ytkr2nc41"]
 
 [ext_resource type="Texture2D" uid="uid://cjm41171ref0f" path="res://assets/characters/duffy1.png" id="1_8kqfj"]
 [ext_resource type="Script" path="res://scenes/duffy_sprites.gd" id="1_ln1nn"]
@@ -34,6 +34,15 @@ animations = [{
 radius = 16.0
 height = 64.0
 
+[sub_resource type="Gradient" id="Gradient_gvybj"]
+offsets = PackedFloat32Array(0, 0.643902, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.0878049, 0.0878049, 0.0878049, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_54xwy"]
+gradient = SubResource("Gradient_gvybj")
+fill = 1
+fill_from = Vector2(0.504532, 0.486405)
+
 [node name="duffy_sprites" type="Area2D"]
 script = ExtResource("1_ln1nn")
 
@@ -46,6 +55,16 @@ frame_progress = 0.5385
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_qymjm")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+z_index = 5
+position = Vector2(-1.43051e-06, 0)
+scale = Vector2(1.25, 1.25)
+range_item_cull_mask = 3
+shadow_enabled = true
+shadow_color = Color(0, 0, 0, 1)
+shadow_item_cull_mask = 3
+texture = SubResource("GradientTexture2D_54xwy")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="area_exited" from="." to="." method="_on_area_exited"]
