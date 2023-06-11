@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://d12ubdpgravd4"]
+
+[sub_resource type="Gradient" id="Gradient_tbyxm"]
+offsets = PackedFloat32Array(0, 0.278049, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.434146, 0.434146, 0.434146, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_lv1pr"]
+gradient = SubResource("Gradient_tbyxm")
+
+[node name="RoomLight" type="Node"]
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+scale = Vector2(1, 216)
+texture = SubResource("GradientTexture1D_lv1pr")
