@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://doxnl6ovprxf0"]
+[gd_scene load_steps=9 format=3 uid="uid://wa1ytkr2nc41"]
 
 [ext_resource type="Texture2D" uid="uid://cjm41171ref0f" path="res://assets/characters/duffy1.png" id="1_8kqfj"]
 [ext_resource type="Script" path="res://scenes/duffy_sprites.gd" id="1_ln1nn"]

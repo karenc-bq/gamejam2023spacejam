@@ -174,13 +174,7 @@ func draw_rooms():
 		var shoeX = randi_range(r.x, r.x + r.w)
 		var shoeY = randi_range(r.y, r.y + r.h)
 		if i == shoeRoom:
-<<<<<<< HEAD
-			var shoesArea = Area2D.new()
-			var shoes = Sprite2D.new()
-			shoeLocation = r.center
-=======
 			var shoes = $shoesArea.get_node("shoes")
->>>>>>> main
 			shoes.position = Vector2(r.center * 32)
 
 		for x in range(r.x, r.x + r.w):
@@ -312,7 +306,6 @@ func along_wall(x, y):
 		if get_cell_atlas_coords(0, Vector2i(x, y + 1)) == Tiles.CORRIDOR || get_cell_atlas_coords(0, Vector2i(x, y - 1)) == Tiles.CORRIDOR:
 			return true
 
-<<<<<<< HEAD
 func _on_shoes_found():
 	print("found shoes")
 	pass
@@ -366,6 +359,3 @@ func checkFurnitureCorner(room, width, length):
 			startX = startX + width
 			
 	return Vector2i(-1, -1)
-=======
-
->>>>>>> main
