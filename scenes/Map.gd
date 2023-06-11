@@ -63,7 +63,7 @@ func generate():
 	create_rooms()
 	join_rooms()
 	clear_deadends()
-	draw_edges()
+#	draw_edges()
 
 func fill_roof():
 	for x in range(0, map_w):
@@ -281,7 +281,6 @@ func check_nearby(x, y):
 			count += 1
 		else:
 			non_empty = get_cell_atlas_coords(0, side)
-			print(non_empty)
 
 	return [count, non_empty]
 

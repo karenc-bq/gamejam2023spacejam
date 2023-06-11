@@ -49,11 +49,8 @@ func _process(delta):
 	position.y = clamp(position.y, 0, screen_size.y)
 	
 	var shoes = tile_map.get_node("shoesArea").get_node("shoes")
-	print("shoes.position: ", shoes.position)
-	print("player position: ", position)
 	# If we check for exact location, it is too hard for player to match exactly with the shoe
-	if (!shoesAlert && (position.x <= shoes.position.x + 16 && position.x >= shoes.position.x - 16) && (position.y <= shoes.position.y + 16 && position.y >= shoes.position.y - 16)):
-		print("Duck got shoe")
+	if (!shoesAlert && (position.x <= shoes.position.x + 32 && position.x >= shoes.position.x - 32) && (position.y <= shoes.position.y + 32 && position.y >= shoes.position.y - 32)):
 		OS.alert('You have found the shoes, now go to the exit', 'Exit')
 		gotShoes = true
 		shoes.hide()
@@ -63,10 +60,9 @@ func _process(delta):
 	if (tile_map.get_cell_atlas_coords(0, tile_map.local_to_map(Vector2i(position.x, position.y))) == Map.Tiles.EXIT):
 		if (gotShoes):
 			# TODO logic for game win
-			OS.alert('You have found the SHOES and exit, you win. Karen and Crystal plz code this', 'Exit')
-			pass
+			OS.alert('You have found the SHOES and exit, you win.', 'Exit')
+			alerted = true
+			get_tree().change_scene_to_file("res://scenes/end_screen.tscn")
 		if (!alerted):
 			OS.alert('You have found the exit', 'Exit')
 			alerted = true
-
-
