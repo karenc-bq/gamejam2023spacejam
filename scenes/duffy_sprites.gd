@@ -64,7 +64,8 @@ func _process(delta):
 		gotShoes = true
 		shoes.hide()
 		shoesAlert = true
-		
+	
+
 	
 	if (tile_map.get_cell_atlas_coords(0, tile_map.local_to_map(Vector2i(position.x, position.y))) == Map.Tiles.EXIT):
 		if (gotShoes):

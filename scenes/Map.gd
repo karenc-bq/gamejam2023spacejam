@@ -178,6 +178,16 @@ func draw_rooms():
 	# draw the rooms on the tilemap
 	for i in range(rooms.size()):
 		var r = rooms[i]
+		
+		var dogInRoom = randi_range(1, 100)
+		if dogInRoom >= 40 && i != shoeRoom:
+			var dogX = randi_range(r.x + 2, r.x + r.w - 2)
+			var dogY = randi_range(r.y + 2, r.y + r.h - 2)
+			var dog = load("res://scenes/dog.tscn")
+			var newDog = dog.instantiate()
+			newDog.position = Vector2(dogX * 32, dogY * 32)
+			add_child(newDog)
+		
 		var shoeX = randi_range(r.x, r.x + r.w)
 		var shoeY = randi_range(r.y, r.y + r.h)
 		if i == shoeRoom:
@@ -308,10 +318,6 @@ func along_wall(x, y):
 	if get_cell_atlas_coords(BACKGROUND_LAYER, Vector2i(x - 1, y)) == Tiles.GROUND || get_cell_atlas_coords(BACKGROUND_LAYER, Vector2i(x + 1, y)) == Tiles.GROUND:
 		if get_cell_atlas_coords(BACKGROUND_LAYER, Vector2i(x, y + 1)) == Tiles.CORRIDOR || get_cell_atlas_coords(BACKGROUND_LAYER, Vector2i(x, y - 1)) == Tiles.CORRIDOR:
 			return true
-
-func _on_shoes_found():
-	print("found shoes")
-	pass
 
 func decorate_rooms():
 	for i in range(rooms.size()):
