@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://c1m3e61fxknei" path="res://assets/interior/32x32/Room_Builder_free_32x32.png" id="2_345ac"]
 [ext_resource type="Script" path="res://scenes/Map.gd" id="2_cw1f6"]
 [ext_resource type="Texture2D" uid="uid://cogiqtvqwt3xj" path="res://assets/interior/32x32/Interiors_free_32x32.png" id="3_k254p"]
-[ext_resource type="PackedScene" uid="uid://wa1ytkr2nc41" path="res://scenes/duffy_sprites.tscn" id="3_tyju2"]
+[ext_resource type="PackedScene" uid="uid://doxnl6ovprxf0" path="res://scenes/duffy_sprites.tscn" id="3_tyju2"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_sfqri"]
 texture = ExtResource("2_345ac")
@@ -1435,6 +1435,13 @@ tile_set = SubResource("TileSet_kawa3")
 cell_quadrant_size = 32
 format = 2
 layer_0/name = "background"
+layer_1/name = "furniture"
+layer_1/enabled = true
+layer_1/modulate = Color(1, 1, 1, 1)
+layer_1/y_sort_enabled = false
+layer_1/y_sort_origin = 0
+layer_1/z_index = 0
+layer_1/tile_data = PackedInt32Array()
 script = ExtResource("2_cw1f6")
 min_room_factor = 0.5
 

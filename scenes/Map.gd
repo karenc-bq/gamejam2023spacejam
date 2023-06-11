@@ -52,6 +52,7 @@ var tree = {}
 var leaves = []
 var leaf_id = 0
 var rooms = []
+var shoeLocation = Vector2(0, 0)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -176,6 +177,7 @@ func draw_rooms():
 		if i == shoeRoom:
 			var shoesArea = Area2D.new()
 			var shoes = Sprite2D.new()
+			shoeLocation = r.center
 			shoes.position = Vector2(r.center * 32)
 			shoes.texture = load("res://assets/Jordan 1 High Dior.png")
 			shoesArea.monitoring = true
@@ -219,8 +221,6 @@ func draw_edges():
 				
 
 		## draw corners
-<<<<<<< Updated upstream
-<<<<<<< HEAD
 		set_cell(0, Vector2i(r.x, r.y), ROOM_BUILDER_ID, Tiles.TOP_LEFT)
 		set_cell(0, Vector2i(r.x + r.w, r.y), ROOM_BUILDER_ID, Tiles.TOP_RIGHT)
 		set_cell(0, Vector2i(r.x, r.y + r.h), ROOM_BUILDER_ID, Tiles.BOTTOM_LEFT)
@@ -235,24 +235,9 @@ func draw_edges():
 				else:
 					set_cell(0, Vector2i(r.x + r.w, y), 1, Tiles.RIGHT_WALL)
 			
-=======
-<<<<<<< HEAD
-=======
->>>>>>> Stashed changes
-		set_cell(0, Vector2i(r.x - 1, r.y - 1), ROOM_BUILDER_ID, Tiles.TOP_LEFT)
-		set_cell(0, Vector2i(r.x + r.w, r.y - 1), ROOM_BUILDER_ID, Tiles.TOP_RIGHT)
-		set_cell(0, Vector2i(r.x - 1, r.y + r.h), ROOM_BUILDER_ID, Tiles.BOTTOM_LEFT)
-		set_cell(0, Vector2i(r.x + r.w, r.y + r.h), ROOM_BUILDER_ID, Tiles.BOTTOM_RIGHT)
-
-	
 	for i in range(rooms.size()):
 		var r = rooms[i]
 		decorate_room(r)
-<<<<<<< Updated upstream
->>>>>>> a3c210b (add table to middle of living room)
->>>>>>> 17dc9d2 (add table to middle of living room)
-=======
->>>>>>> Stashed changes
 
 func join_rooms():
 	for sister in leaves:
@@ -336,11 +321,42 @@ func _on_shoes_found():
 
 func decorate_room(room):
 	if room.type == 0:
-		print("found living room")
 		set_cell(1, Vector2i(room.center.x, room.center.y), 3, Furniture.TABLE_TOP_LEFT)
 		set_cell(1, Vector2i(room.center.x + 1, room.center.y), 3, Furniture.TABLE_TOP_MIDDLE)
 		set_cell(1, Vector2i(room.center.x + 2, room.center.y), 3, Furniture.TABLE_TOP_RIGHT)
 		set_cell(1, Vector2i(room.center.x, room.center.y + 1), 3, Furniture.TABLE_BOTTOM_LEFT)
 		set_cell(1, Vector2i(room.center.x + 1, room.center.y + 1), 3, Furniture.TABLE_BOTTOM_MIDDLE)
 		set_cell(1, Vector2i(room.center.x + 2, room.center.y + 1), 3, Furniture.TABLE_BOTTOM_RIGHT)
+	elif room.type == 1:
+		var coordinates = checkFurnitureRoom(room, 3, 2)
+		if coordinates != Vector2i(-1, -1):
+			set_cell(1, Vector2i(coordinates.x, coordinates.y + 1), 3, Furniture.W_COUCH_TOP_LEFT)
+			set_cell(1, Vector2i(coordinates.x + 1, coordinates.y + 1), 3, Furniture.W_COUCH_TOP_MIDDLE)
+			set_cell(1, Vector2i(coordinates.x + 2, coordinates.y + 1), 3, Furniture.W_COUCH_TOP_RIGHT)
+			set_cell(1, Vector2i(coordinates.x, coordinates.y + 2), 3, Furniture.W_COUCH_BOTTOM_LEFT)
+			set_cell(1, Vector2i(coordinates.x + 1, coordinates.y + 2), 3, Furniture.W_COUCH_BOTTOM_MIDDLE)
+			set_cell(1, Vector2i(coordinates.x + 2, coordinates.y + 2), 3, Furniture.W_COUCH_BOTTOM_RIGHT)
+
+func checkFurnitureRoom(room, width, length):
+	var startX = room.x + 2
+	var startY = room.y
+	while startX < (room.x + room.w - width):
+		var areaClear = true
+		# check above
+		for i in range(width):
+			if get_cell_atlas_coords(0, Vector2i(startX + i, startY - 1)) == Tiles.CORRIDOR || get_cell_atlas_coords(0, Vector2i(startX + i, startY - 1)) == Tiles.BOTTOM_DOOR:
+				areaClear = false
+				break
+
+		# check right
+		for i in range(length):
+			if get_cell_atlas_coords(0, Vector2i(startX + width, startY + i)) == Tiles.CORRIDOR || get_cell_atlas_coords(0, Vector2i(startX + width, startY + i)) == Tiles.BOTTOM_DOOR:
+				areaClear = false
+				break
 		
+		if areaClear:
+			return Vector2i(startX, startY)
+		else:
+			startX = startX + width
+			
+	return Vector2i(-1, -1)
