@@ -1,14 +1,22 @@
 [gd_scene load_steps=3 format=3 uid="uid://dqxayk5s37xt6"]
 
-[sub_resource type="Gradient" id="Gradient_tbyxm"]
-offsets = PackedFloat32Array(0, 0.278049, 1)
-colors = PackedColorArray(0, 0, 0, 1, 0.434146, 0.434146, 0.434146, 1, 1, 1, 1, 1)
+[sub_resource type="Gradient" id="Gradient_gvybj"]
+offsets = PackedFloat32Array(0, 0.643902, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.0878049, 0.0878049, 0.0878049, 1, 0, 0, 0, 1)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_lv1pr"]
-gradient = SubResource("Gradient_tbyxm")
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_y543k"]
+gradient = SubResource("Gradient_gvybj")
+fill = 1
+fill_from = Vector2(0.504532, 0.486405)
 
-[node name="RoomLight" type="Node"]
+[node name="Light" type="Node2D"]
 
-[node name="PointLight2D" type="PointLight2D" parent="."]
-scale = Vector2(1, 216)
-texture = SubResource("GradientTexture1D_lv1pr")
+[node name="PointLight2D2" type="PointLight2D" parent="."]
+z_index = 5
+position = Vector2(-1.88351e-05, 2.38419e-07)
+scale = Vector2(6, 5.89453)
+range_item_cull_mask = 3
+shadow_enabled = true
+shadow_color = Color(0, 0, 0, 1)
+shadow_item_cull_mask = 3
+texture = SubResource("GradientTexture2D_y543k")

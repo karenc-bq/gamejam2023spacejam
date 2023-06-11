@@ -19,6 +19,13 @@ light_mode = 1
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_3dcpv"]
 blend_mode = 1
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_62qg0"]
+blend_mode = 1
+light_mode = 1
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_3dcpv"]
+blend_mode = 1
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_sfqri"]
 texture = ExtResource("2_345ac")
 texture_region_size = Vector2i(32, 32)
@@ -1480,7 +1487,6 @@ offset_bottom = 107.0
 texture_normal = ExtResource("2_eqv50")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-visible = false
 clip_children = 2
 color = Color(0, 0, 0, 1)
 

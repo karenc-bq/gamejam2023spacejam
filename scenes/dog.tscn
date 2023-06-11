@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://scenes/dog.gd" id="1_vp4eh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yhafs"]
-size = Vector2(26, 21)
+size = Vector2(24, 14)
 
 [node name="dog" type="Node2D"]
 
@@ -17,7 +17,7 @@ texture = ExtResource("1_v6w23")
 hframes = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="dogArea"]
-position = Vector2(-4, 3.5)
+position = Vector2(-5, 6)
 shape = SubResource("RectangleShape2D_yhafs")
 
 [connection signal="area_entered" from="dogArea" to="dogArea" method="_on_area_entered"]

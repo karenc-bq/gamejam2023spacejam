@@ -64,6 +64,10 @@ func _process(delta):
 					var room = tile_map.rooms[i]
 					if enteredRooms[i] == false && position.x <= (room.x * 32 + room.w * 32) && position.x >= room.x * 32 && position.y <= (room.y * 32 + room.h * 32) && position.y >= room.y * 32:
 						enteredRooms[i] = true
+						var lightNode = load("res://scenes/RoomLight.tscn")
+						var light = lightNode.instantiate()
+						light.position = Vector2(room.center.x * 32, room.center.y * 32)
+						get_parent().get_node("TileMap").add_child(light)
 	
 	position.x = clamp(position.x, 0, screen_size.x)
 	position.y = clamp(position.y, 0, screen_size.y)
