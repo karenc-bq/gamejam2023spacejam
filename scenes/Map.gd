@@ -286,6 +286,7 @@ func connect_leaves(leaf1, leaf2):
 			
 func clear_deadends():
 	var done = false
+	var deadend_tiles = [Tiles.EDGE, Tiles.EDGE, Tiles.RIGHT_WALL, Tiles.LEFT_WALL]
 
 	while !done:
 		done = true
@@ -295,7 +296,11 @@ func clear_deadends():
 
 			var nearby = check_nearby(cell.x, cell.y)
 			if nearby[0] == 3 || next_to_corner(nearby):
-				set_cell(BACKGROUND_LAYER, cell, 1, Tiles.ROOF)
+				if (nearby[2] == 1):
+					set_cell(BACKGROUND_LAYER, cell, 1, deadend_tiles[nearby[2]], 1)
+				else:
+					set_cell(BACKGROUND_LAYER, cell, 1, deadend_tiles[nearby[2]])
+					
 				deadends.append(cell)
 				done = false
 	
@@ -307,14 +312,16 @@ func clear_deadends():
 func check_nearby(x, y):
 	var count: int = 0
 	var non_empty: Vector2i = Tiles.CORRIDOR
+	var direction = -1
 	var sides = [Vector2i(x, y - 1), Vector2i(x, y + 1), Vector2i(x - 1, y), Vector2i(x + 1, y)]
 	for side in sides:
 		if (get_cell_atlas_coords(BACKGROUND_LAYER, side) == Tiles.EMPTY):
 			count += 1
 		else:
 			non_empty = get_cell_atlas_coords(BACKGROUND_LAYER, side)
+			direction = sides.find(side)
 
-	return [count, non_empty]
+	return [count, non_empty, direction]
 
 func next_to_corner(nearby):
 	var edges = [Tiles.TOP_LEFT, Tiles.TOP_RIGHT, Tiles.BOTTOM_LEFT, Tiles.BOTTOM_RIGHT]
