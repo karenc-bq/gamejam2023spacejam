@@ -162,7 +162,6 @@ func create_rooms():
 				
 func draw_rooms():
 	var shoeRoom = randi_range(0, rooms.size())
-	shoeRoom = 0 #-AL- remove this line do notttt commit!!!!!!
 	# draw the rooms on the tilemap
 	for i in range(rooms.size()):
 		var r = rooms[i]
@@ -299,17 +298,4 @@ func along_wall(x, y):
 		if get_cell_atlas_coords(0, Vector2i(x, y + 1)) == Tiles.CORRIDOR || get_cell_atlas_coords(0, Vector2i(x, y - 1)) == Tiles.CORRIDOR:
 			return true
 
-# -AL- remove?
-func _on_shoes_area_area_entered(area):
-	print("found shoes")
-	# Hide shoes to emulate the shoes are retrieved by character
-	area.hide()
-	pass # Replace with function body.
-
-# -AL- delete?
-#func _on_shoes_area_body_shape_entered(body_rid, body, body_shape_index, local_shape_index):
-#	print("found shoes")
-#	# Hide shoes to emulate the shoes are retrieved by character
-#	hide()
-#	pass # Replace with function body.
 

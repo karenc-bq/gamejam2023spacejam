@@ -10,13 +10,14 @@ const Map = preload("res://scenes/Map.gd")
 @export var speed = 400 # How fast the player will move (pixels/sec).
 var screen_size # Size of the game window.
 var tile_map
+var gotShoes = false
+var shoesAlert = false
 var alerted = false
 
 func _ready():
 	screen_size = get_viewport_rect().size
 	tile_map = get_parent().get_node("TileMap")
 	var start_room_idx = randi_range(0, tile_map.rooms.size())
-	start_room_idx = 0; #-AL- test only do not change!!!
 	var start_room = tile_map.rooms[start_room_idx]
 	position = tile_map.map_to_local(start_room.center)
 
@@ -47,22 +48,24 @@ func _process(delta):
 	position.x = clamp(position.x, 0, screen_size.x)
 	position.y = clamp(position.y, 0, screen_size.y)
 	
-	if (!alerted && tile_map.get_cell_atlas_coords(0, tile_map.local_to_map(Vector2i(position.x, position.y))) == Map.Tiles.EXIT):
-		OS.alert('You have found the exit', 'Exit')
-		alerted = true
+	var shoes = tile_map.get_node("shoesArea").get_node("shoes")
+	print("shoes.position: ", shoes.position)
+	print("player position: ", position)
+	if (!shoesAlert && (position.x <= shoes.position.x + 16 && position.x >= shoes.position.x - 16) && (position.y <= shoes.position.y + 16 && position.y >= shoes.position.y - 16)):
+		print("Duck got shoe")
+		OS.alert('You have found the shoes, now go to the exit', 'Exit')
+		gotShoes = true
+		shoes.hide()
+		shoesAlert = true
+		
+	
+	if (tile_map.get_cell_atlas_coords(0, tile_map.local_to_map(Vector2i(position.x, position.y))) == Map.Tiles.EXIT):
+		if (gotShoes):
+			# TODO logic for game win
+			OS.alert('You have found the SHOES and exit, you win. Karen and Crystal plz code this', 'Exit')
+			pass
+		if (!alerted):
+			OS.alert('You have found the exit', 'Exit')
+			alerted = true
 
 
-func _on_area_exited(area):
-	print("Duck got shoe2")
-	print("exited area2: ", area)
-	gotShoe.emit()
-	# Hide the shoe to emulate shoe retrieval
-	area.hide()
-
-
-func _on_shoes_area_area_entered(area):
-	print("Duck got shoe2")
-	print("exited area2: ", area)
-	gotShoe.emit()
-	# Hide the shoe to emulate shoe retrieval
-	area.hide()
