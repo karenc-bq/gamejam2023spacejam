@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://ct3l1d4wsqkcg"]
+[gd_scene load_steps=4 format=3 uid="uid://buaufig65lrl1"]
 
 [ext_resource type="Texture2D" path="res://assets/Dog.png" id="1_v6w23"]
 [ext_resource type="Script" path="res://scenes/dog.gd" id="1_vp4eh"]
