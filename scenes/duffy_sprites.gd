@@ -85,7 +85,8 @@ func _process(delta):
 		shoesAlert = true
 
 	
-	if (tile_map.get_cell_atlas_coords(0, tile_map.local_to_map(Vector2i(position.x, position.y))) == Map.Tiles.EXIT):
+	if (tile_map.get_cell_atlas_coords(Map.BACKGROUND_LAYER, tile_map.local_to_map(Vector2i(position.x, position.y))) == Map.Tiles.EXIT):
+		print("test")
 		if (gotShoes):
 			OS.alert('You have found the SHOES and exit, you win.', 'Exit')
 			alerted = true
