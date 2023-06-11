@@ -15,7 +15,7 @@ func _on_quit_button_pressed():
 	get_tree().quit()
 
 func _on_btn_mouse_entered():
-	get_node("blurb").show()
+	$blurb.show()
 
 func _on_btn_mouse_exited():
-	get_node("blurb").hide()
+	$"blurb".hide()

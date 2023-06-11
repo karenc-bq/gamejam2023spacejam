@@ -10,13 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://cogiqtvqwt3xj" path="res://assets/interior/32x32/Interiors_free_32x32.png" id="3_k254p"]
 [ext_resource type="PackedScene" uid="uid://wa1ytkr2nc41" path="res://scenes/duffy_sprites.tscn" id="3_tyju2"]
 [ext_resource type="Texture2D" uid="uid://bpbo5h1c7hv5u" path="res://assets/Jordan 1 High Dior.png" id="5_hjov2"]
-
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_62qg0"]
-blend_mode = 1
-light_mode = 1
-
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_3dcpv"]
-blend_mode = 1
+[ext_resource type="AudioStream" uid="uid://45jw6vd8ejkk" path="res://assets/soundtracks/Space Jam Theme Song.wav" id="10_vwwhr"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_62qg0"]
 blend_mode = 1
@@ -1454,10 +1448,14 @@ height = 48.0
 [node name="game_screen" type="Node2D"]
 script = ExtResource("1_mu87s")
 
+[node name="audio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("10_vwwhr")
+volume_db = -20.0
+autoplay = true
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="CanvasGroup" type="CanvasGroup" parent="CanvasLayer"]
-visible = false
 clip_children = 1
 material = SubResource("CanvasItemMaterial_62qg0")
 
@@ -1528,4 +1526,5 @@ shape = SubResource("CapsuleShape2D_jg3yj")
 
 [node name="duffy_sprites" parent="." instance=ExtResource("3_tyju2")]
 
+[connection signal="pressed" from="CanvasLayer/MusicButton" to="." method="_on_music_button_pressed"]
 [connection signal="area_entered" from="TileMap/shoesArea" to="TileMap" method="_on_shoes_area_area_entered"]
