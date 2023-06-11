@@ -365,7 +365,7 @@ func decorate_room(room):
 		set_cell(FOREGROUND_LAYER, Vector2i(room.center.x + 2, room.center.y + 1), INTERIOR_ID, Furniture.TABLE_BOTTOM_RIGHT)
 		
 	elif room.type == 1:
-		var coordinates = checkFurnitureCorner(room, INTERIOR_ID, 2)
+		var coordinates = checkFurnitureCorner(room, 3, 2)
 		if coordinates != Vector2i(-1, -1):
 			set_cell(FOREGROUND_LAYER, Vector2i(coordinates.x, coordinates.y + 1), INTERIOR_ID, couch_variation.get_top_left())
 			set_cell(FOREGROUND_LAYER, Vector2i(coordinates.x + 1, coordinates.y + 1), INTERIOR_ID, couch_variation.get_top_middle())
@@ -373,7 +373,14 @@ func decorate_room(room):
 			set_cell(FOREGROUND_LAYER, Vector2i(coordinates.x, coordinates.y + 2), INTERIOR_ID, couch_variation.get_bottom_left())
 			set_cell(FOREGROUND_LAYER, Vector2i(coordinates.x + 1, coordinates.y + 2), INTERIOR_ID, couch_variation.get_bottom_middle())
 			set_cell(FOREGROUND_LAYER, Vector2i(coordinates.x + 2, coordinates.y + 2), INTERIOR_ID, couch_variation.get_bottom_right())
-			
+		
+		coordinates = checkFurnitureCorner(room, 2, 2)
+		if coordinates != Vector2i(-1, -1):
+			set_cell(FOREGROUND_LAYER, Vector2i(coordinates.x, coordinates.y + 1), INTERIOR_ID, deco_variation.get_middle_left())
+			set_cell(FOREGROUND_LAYER, Vector2i(coordinates.x + 1, coordinates.y + 1), INTERIOR_ID, deco_variation.get_middle_right())
+			set_cell(FOREGROUND_LAYER, Vector2i(coordinates.x, coordinates.y + 2), INTERIOR_ID, deco_variation.get_bottom_left())
+			set_cell(FOREGROUND_LAYER, Vector2i(coordinates.x + 1, coordinates.y + 2), INTERIOR_ID, deco_variation.get_bottom_right())
+
 		var carpet = Vector2i(room.center.x - 2, room.center.y - 2)
 		set_cell(FOREGROUND_LAYER, Vector2i(carpet.x, carpet.y + 1), INTERIOR_ID, carpet_variation.get_top_left())
 		set_cell(FOREGROUND_LAYER, Vector2i(carpet.x + 1, carpet.y + 1), INTERIOR_ID, carpet_variation.get_top_middle())
@@ -403,13 +410,18 @@ func checkFurnitureCorner(room, width, length):
 		var areaClear = true
 		# check above
 		for i in range(width):
-			if get_cell_atlas_coords(BACKGROUND_LAYER, Vector2i(startX + i, startY - 1)) == Tiles.CORRIDOR || get_cell_atlas_coords(BACKGROUND_LAYER, Vector2i(startX + i, startY - 1)) == Tiles.BOTTOM_DOOR:
+			var above = get_cell_atlas_coords(BACKGROUND_LAYER, Vector2i(startX + i, startY - 1))
+			if above == Tiles.CORRIDOR || above == Tiles.BOTTOM_DOOR || get_cell_atlas_coords(FOREGROUND_LAYER, Vector2i(startX + i, startY - 1)) != Vector2i(-1, -1):
 				areaClear = false
 				break
 
-		# check right
+		# check left and right
 		for i in range(length):
-			if get_cell_atlas_coords(BACKGROUND_LAYER, Vector2i(startX + width, startY + i)) == Tiles.CORRIDOR || get_cell_atlas_coords(BACKGROUND_LAYER, Vector2i(startX + width, startY + i)) == Tiles.BOTTOM_DOOR:
+			var right = get_cell_atlas_coords(BACKGROUND_LAYER, Vector2i(startX + width, startY + i))
+			if right == Tiles.CORRIDOR || right == Tiles.BOTTOM_DOOR || get_cell_atlas_coords(FOREGROUND_LAYER, Vector2i(startX + width, startY + i)) != Vector2i(-1, -1):
+				areaClear = false
+				break
+			if get_cell_atlas_coords(FOREGROUND_LAYER, Vector2i(startX + width - 2, startY + i)) != Vector2i(-1, -1):
 				areaClear = false
 				break
 		
