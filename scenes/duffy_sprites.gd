@@ -51,6 +51,7 @@ func _process(delta):
 	var shoes = tile_map.get_node("shoesArea").get_node("shoes")
 	print("shoes.position: ", shoes.position)
 	print("player position: ", position)
+	# If we check for exact location, it is too hard for player to match exactly with the shoe
 	if (!shoesAlert && (position.x <= shoes.position.x + 16 && position.x >= shoes.position.x - 16) && (position.y <= shoes.position.y + 16 && position.y >= shoes.position.y - 16)):
 		print("Duck got shoe")
 		OS.alert('You have found the shoes, now go to the exit', 'Exit')
