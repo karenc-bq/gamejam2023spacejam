@@ -1,18 +1,21 @@
 [gd_scene load_steps=4 format=3 uid="uid://2bq0gop47vyr"]
 
 [ext_resource type="Script" path="res://scenes/end_screen.gd" id="1_ea5ly"]
-[ext_resource type="FontFile" uid="uid://cl1cc658t40si" path="res://assets/fonts/Kaph_Font_1_10/TrueType (.ttf)/Kaph-Regular.ttf" id="1_qixg6"]
+[ext_resource type="FontFile" uid="uid://3dwi5c37quoh" path="res://assets/fonts/Lithos Black Regular.otf" id="2_w4qq6"]
 [ext_resource type="Texture2D" uid="uid://ol3es1dbq8nv" path="res://assets/starting_screen_background.png" id="3_n6j4a"]
 
 [node name="end_screen" type="Node2D"]
 script = ExtResource("1_ea5ly")
 
-[node name="Button" type="Button" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Button" type="Button" parent="CanvasLayer"]
 offset_left = 863.0
 offset_top = 482.0
 offset_right = 1069.0
 offset_bottom = 549.0
-theme_override_fonts/font = ExtResource("1_qixg6")
+scale = Vector2(1, 1.00457)
+theme_override_fonts/font = ExtResource("2_w4qq6")
 theme_override_font_sizes/font_size = 20
 text = "RESTART"
 
@@ -24,4 +27,4 @@ offset_bottom = 1358.0
 texture = ExtResource("3_n6j4a")
 stretch_mode = 4
 
-[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Button" to="." method="_on_button_pressed"]
