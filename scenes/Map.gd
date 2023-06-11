@@ -305,7 +305,7 @@ func clear_deadends():
 				deadends.append(cell)
 				done = false
 	
-	if (deadends.size() > 1 && exit != null):
+	if (deadends.size() > 0 && exit != null):
 		exit = deadends[Util.randi_range(0, deadends.size() - 1)]
 		set_cell(BACKGROUND_LAYER, exit, 1, Tiles.EXIT)
 	
