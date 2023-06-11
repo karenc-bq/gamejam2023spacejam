@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://ct3l1d4wsqkcg"]
+
+[ext_resource type="Texture2D" path="res://assets/Dog.png" id="1_v6w23"]
+[ext_resource type="Script" path="res://scenes/dog.gd" id="1_vp4eh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yhafs"]
+size = Vector2(26, 21)
+
+[node name="dog" type="Node2D"]
+
+[node name="dogArea" type="Area2D" parent="."]
+script = ExtResource("1_vp4eh")
+
+[node name="dogSprite" type="Sprite2D" parent="dogArea"]
+position = Vector2(0, -8)
+texture = ExtResource("1_v6w23")
+hframes = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="dogArea"]
+position = Vector2(-4, 3.5)
+shape = SubResource("RectangleShape2D_yhafs")
+
+[connection signal="area_entered" from="dogArea" to="dogArea" method="_on_area_entered"]
+[connection signal="body_entered" from="dogArea" to="dogArea" method="_on_body_entered"]
+[connection signal="body_shape_entered" from="dogArea" to="dogArea" method="_on_body_shape_entered"]

@@ -11,9 +11,6 @@ func _process(delta):
 	pass
 
 
-#func _on_body_entered(body):
-#	print("dog area entered")
-
-
-func _on_body_shape_entered(body_rid, body, body_shape_index, local_shape_index):
-	print("dog area entered")
+func _on_area_entered(area):
+	OS.alert("Oh no! You've run into a guard dog!!", 'Exit')
+	get_tree().change_scene_to_file("res://scenes/end_screen.tscn")

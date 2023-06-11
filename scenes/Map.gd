@@ -172,12 +172,14 @@ func draw_rooms():
 	for i in range(rooms.size()):
 		var r = rooms[i]
 		
-		var dogInRoom = randi_range(50, 100)
+		var dogInRoom = randi_range(1, 100)
 		if dogInRoom >= 50:
 			var dogX = randi_range(r.x + 1, r.x + r.w - 1)
 			var dogY = randi_range(r.y + 1, r.y + r.h - 1)
-			var dog = $dog.get_node("dogSprite")
-			dog.position = Vector2(dogX * 32, dogY * 32)
+			var dog = load("res://scenes/dog.tscn")
+			var newDog = dog.instantiate()
+			newDog.position = Vector2(dogX * 32, dogY * 32)
+			add_child(newDog)
 		
 		var shoeX = randi_range(r.x, r.x + r.w)
 		var shoeY = randi_range(r.y, r.y + r.h)
