@@ -1,11 +1,13 @@
 extends TileMap
 
 const Util = preload("res://scenes/Util.gd")
+const Furniture = preload("res://scenes/furniture.gd")
 
 @export var map_w: int = 64
 @export var map_h: int = 40
 @export var min_room_size: int = 9
 @export_range(0.2, 0.5) var min_room_factor: float = 0.45
+
 
 const FLOOR_TILE = Vector2i(12, 14)
 const CORRIDOR_TILE = Vector2i(12, 6)
@@ -50,6 +52,7 @@ var tree = {}
 var leaves = []
 var leaf_id = 0
 var rooms = []
+var shoeLocation = Vector2(0, 0)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -146,6 +149,9 @@ func create_rooms():
 
 		if Util.chance(75):
 			var room = {}
+			var roomType = randi_range(0, 2)
+			room.type = roomType
+			
 			room.id = leaf_id;
 			room.w  = Util.randi_range(min_room_size, leaf.w) - 1
 			room.h  = Util.randi_range(min_room_size, leaf.h) - 1
@@ -221,6 +227,9 @@ func draw_edges():
 				else:
 					set_cell(0, Vector2i(r.x + r.w, y), 1, Tiles.RIGHT_WALL)
 			
+	for i in range(rooms.size()):
+		var r = rooms[i]
+		decorate_room(r)
 
 func join_rooms():
 	for sister in leaves:
@@ -281,7 +290,6 @@ func check_nearby(x, y):
 			count += 1
 		else:
 			non_empty = get_cell_atlas_coords(0, side)
-			print(non_empty)
 
 	return [count, non_empty]
 
@@ -298,4 +306,56 @@ func along_wall(x, y):
 		if get_cell_atlas_coords(0, Vector2i(x, y + 1)) == Tiles.CORRIDOR || get_cell_atlas_coords(0, Vector2i(x, y - 1)) == Tiles.CORRIDOR:
 			return true
 
+func _on_shoes_found():
+	print("found shoes")
+	pass
 
+func decorate_room(room):
+	if room.type == 0:
+		set_cell(1, Vector2i(room.center.x, room.center.y), 3, Furniture.TABLE_TOP_LEFT)
+		set_cell(1, Vector2i(room.center.x + 1, room.center.y), 3, Furniture.TABLE_TOP_MIDDLE)
+		set_cell(1, Vector2i(room.center.x + 2, room.center.y), 3, Furniture.TABLE_TOP_RIGHT)
+		set_cell(1, Vector2i(room.center.x, room.center.y + 1), 3, Furniture.TABLE_BOTTOM_LEFT)
+		set_cell(1, Vector2i(room.center.x + 1, room.center.y + 1), 3, Furniture.TABLE_BOTTOM_MIDDLE)
+		set_cell(1, Vector2i(room.center.x + 2, room.center.y + 1), 3, Furniture.TABLE_BOTTOM_RIGHT)
+	elif room.type == 1:
+		var coordinates = checkFurnitureCorner(room, 3, 2)
+		if coordinates != Vector2i(-1, -1):
+			set_cell(1, Vector2i(coordinates.x, coordinates.y + 1), 3, Furniture.W_COUCH_TOP_LEFT)
+			set_cell(1, Vector2i(coordinates.x + 1, coordinates.y + 1), 3, Furniture.W_COUCH_TOP_MIDDLE)
+			set_cell(1, Vector2i(coordinates.x + 2, coordinates.y + 1), 3, Furniture.W_COUCH_TOP_RIGHT)
+			set_cell(1, Vector2i(coordinates.x, coordinates.y + 2), 3, Furniture.W_COUCH_BOTTOM_LEFT)
+			set_cell(1, Vector2i(coordinates.x + 1, coordinates.y + 2), 3, Furniture.W_COUCH_BOTTOM_MIDDLE)
+			set_cell(1, Vector2i(coordinates.x + 2, coordinates.y + 2), 3, Furniture.W_COUCH_BOTTOM_RIGHT)
+			
+		var carpet = Vector2i(room.center.x - 2, room.center.y - 2)
+		set_cell(1, Vector2i(carpet.x, carpet.y + 1), 3, Furniture.CARPET_1_TOP_LEFT)
+		set_cell(1, Vector2i(carpet.x + 1, carpet.y + 1), 3, Furniture.CARPET_1_TOP_MIDDLE)
+		set_cell(1, Vector2i(carpet.x + 2, carpet.y + 1), 3, Furniture.CARPET_1_TOP_RIGHT)
+		set_cell(1, Vector2i(carpet.x, carpet.y + 2), 3, Furniture.CARPET_1_BOTTOM_LEFT)
+		set_cell(1, Vector2i(carpet.x + 1, carpet.y + 2), 3, Furniture.CARPET_1_BOTTOM_MIDDLE)
+		set_cell(1, Vector2i(carpet.x + 2, carpet.y + 2), 3, Furniture.CARPET_1_BOTTOM_RIGHT)
+
+func checkFurnitureCorner(room, width, length):
+	var startX = room.x + 2
+	var startY = room.y
+	while startX < (room.x + room.w - width):
+		var areaClear = true
+		# check above
+		for i in range(width):
+			if get_cell_atlas_coords(0, Vector2i(startX + i, startY - 1)) == Tiles.CORRIDOR || get_cell_atlas_coords(0, Vector2i(startX + i, startY - 1)) == Tiles.BOTTOM_DOOR:
+				areaClear = false
+				break
+
+		# check right
+		for i in range(length):
+			if get_cell_atlas_coords(0, Vector2i(startX + width, startY + i)) == Tiles.CORRIDOR || get_cell_atlas_coords(0, Vector2i(startX + width, startY + i)) == Tiles.BOTTOM_DOOR:
+				areaClear = false
+				break
+		
+		if areaClear:
+			return Vector2i(startX, startY)
+		else:
+			startX = startX + width
+			
+	return Vector2i(-1, -1)
