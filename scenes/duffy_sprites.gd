@@ -59,7 +59,7 @@ func _process(delta):
 		if !isFurniture:
 			position = future_pos
 			
-			if tile == Map.Tiles.GROUND:
+			if furnitureTile == Furniture.LAMP_UP || furnitureTile == Furniture.LAMP_DOWN:
 				for i in range(enteredRooms.size()):
 					var room = tile_map.rooms[i]
 					if enteredRooms[i] == false && position.x <= (room.x * 32 + room.w * 32) && position.x >= room.x * 32 && position.y <= (room.y * 32 + room.h * 32) && position.y >= room.y * 32:
