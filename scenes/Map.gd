@@ -215,7 +215,7 @@ func draw_edges():
 		
 		# draw top and bottom edges
 		for x in range(r.x, r.x + r.w):
-			set_cell(BACKGROUND_LAYER, Vector2i(x, r.y + r.h), ROOM_BUILDER_ID, Tiles.EDGE)
+#			set_cell(BACKGROUND_LAYER, Vector2i(x, r.y + r.h), ROOM_BUILDER_ID, Tiles.EDGE)
 			
 			if (get_cell_atlas_coords(BACKGROUND_LAYER, Vector2i(x, r.y - 1)) == Tiles.CORRIDOR):
 				set_cell(BACKGROUND_LAYER, Vector2i(x, r.y), INTERIOR_ID, Tiles.TOP_DOOR)
@@ -223,7 +223,7 @@ func draw_edges():
 			else:
 				set_cell(BACKGROUND_LAYER, Vector2i(x, r.y), ROOM_BUILDER_ID, Tiles.ROOF)
 				set_cell(BACKGROUND_LAYER, Vector2i(x, r.y + 1), ROOM_BUILDER_ID, Tiles.WALL)
-
+#
 			if (get_cell_atlas_coords(BACKGROUND_LAYER, Vector2i(x, r.y + r.h + 1)) == Tiles.CORRIDOR):
 				set_cell(BACKGROUND_LAYER, Vector2i(x, r.y + r.h), ROOM_BUILDER_ID, Tiles.CORRIDOR)
 		
