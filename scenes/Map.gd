@@ -298,7 +298,6 @@ func check_nearby(x, y):
 			count += 1
 		else:
 			non_empty = get_cell_atlas_coords(0, side)
-			print(non_empty)
 
 	return [count, non_empty]
 
@@ -328,7 +327,7 @@ func decorate_room(room):
 		set_cell(1, Vector2i(room.center.x + 1, room.center.y + 1), 3, Furniture.TABLE_BOTTOM_MIDDLE)
 		set_cell(1, Vector2i(room.center.x + 2, room.center.y + 1), 3, Furniture.TABLE_BOTTOM_RIGHT)
 	elif room.type == 1:
-		var coordinates = checkFurnitureRoom(room, 3, 2)
+		var coordinates = checkFurnitureCorner(room, 3, 2)
 		if coordinates != Vector2i(-1, -1):
 			set_cell(1, Vector2i(coordinates.x, coordinates.y + 1), 3, Furniture.W_COUCH_TOP_LEFT)
 			set_cell(1, Vector2i(coordinates.x + 1, coordinates.y + 1), 3, Furniture.W_COUCH_TOP_MIDDLE)
@@ -336,8 +335,16 @@ func decorate_room(room):
 			set_cell(1, Vector2i(coordinates.x, coordinates.y + 2), 3, Furniture.W_COUCH_BOTTOM_LEFT)
 			set_cell(1, Vector2i(coordinates.x + 1, coordinates.y + 2), 3, Furniture.W_COUCH_BOTTOM_MIDDLE)
 			set_cell(1, Vector2i(coordinates.x + 2, coordinates.y + 2), 3, Furniture.W_COUCH_BOTTOM_RIGHT)
+			
+		var carpet = Vector2i(room.center.x - 2, room.center.y - 2)
+		set_cell(1, Vector2i(carpet.x, carpet.y + 1), 3, Furniture.CARPET_1_TOP_LEFT)
+		set_cell(1, Vector2i(carpet.x + 1, carpet.y + 1), 3, Furniture.CARPET_1_TOP_MIDDLE)
+		set_cell(1, Vector2i(carpet.x + 2, carpet.y + 1), 3, Furniture.CARPET_1_TOP_RIGHT)
+		set_cell(1, Vector2i(carpet.x, carpet.y + 2), 3, Furniture.CARPET_1_BOTTOM_LEFT)
+		set_cell(1, Vector2i(carpet.x + 1, carpet.y + 2), 3, Furniture.CARPET_1_BOTTOM_MIDDLE)
+		set_cell(1, Vector2i(carpet.x + 2, carpet.y + 2), 3, Furniture.CARPET_1_BOTTOM_RIGHT)
 
-func checkFurnitureRoom(room, width, length):
+func checkFurnitureCorner(room, width, length):
 	var startX = room.x + 2
 	var startY = room.y
 	while startX < (room.x + room.w - width):

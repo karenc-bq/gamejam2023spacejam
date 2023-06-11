@@ -12,6 +12,13 @@ const W_COUCH_BOTTOM_LEFT = Vector2i(4, 73)
 const W_COUCH_BOTTOM_MIDDLE = Vector2i(5, 73)
 const W_COUCH_BOTTOM_RIGHT = Vector2i(6, 73)
 
+const CARPET_1_TOP_LEFT = Vector2i(3, 42)
+const CARPET_1_TOP_MIDDLE = Vector2i(4, 42)
+const CARPET_1_TOP_RIGHT = Vector2i(5, 42)
+const CARPET_1_BOTTOM_LEFT = Vector2i(3, 43)
+const CARPET_1_BOTTOM_MIDDLE = Vector2i(4, 43)
+const CARPET_1_BOTTOM_RIGHT = Vector2i(5, 43)
+
 
 const FURNITURE_TILES = [
 	TABLE_TOP_LEFT,
