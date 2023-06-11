@@ -22,9 +22,15 @@ const BOTTOM_RIGHT_TILE = Vector2i(13, 3)
 const TOP_DOOR_TILE = Vector2i(12, 24)
 const BOTTOM_DOOR_TILE = Vector2i(12, 25)
 const EXIT_TILE = Vector2i(12, 0)
+const DARK_TILE = Vector2i(0, 0)
 
 const ROOM_BUILDER_ID = 1
+const COLOR_ID = 2
 const INTERIOR_ID = 3
+
+const BACKGROUND_COLOR_LAYER = 0
+const BACKGROUND_LAYER = 1
+const FOREGROUND_LAYER = 2
 
 var exit: Vector2i
 var deadends = []
@@ -44,7 +50,7 @@ const Tiles = {
 	"TOP_DOOR": TOP_DOOR_TILE,
 	"BOTTOM_DOOR": BOTTOM_DOOR_TILE,
 	"EXIT": EXIT_TILE,
-	"EMPTY" : Vector2i(-1 ,-1)
+	"EMPTY" : DARK_TILE
 }
 
 var tree = {}
@@ -71,7 +77,8 @@ func generate():
 func fill_roof():
 	for x in range(0, map_w):
 		for y in range(0, map_h):
-			set_cell(0, Vector2i(x, y), 1, Tiles.EMPTY)
+			set_cell(BACKGROUND_COLOR_LAYER, Vector2i(x, y), COLOR_ID, Tiles.EMPTY)
+			set_cell(BACKGROUND_LAYER, Vector2i(x, y), COLOR_ID, Tiles.EMPTY)
 
 func start_tree():
 	rooms = []
@@ -179,7 +186,7 @@ func draw_rooms():
 
 		for x in range(r.x, r.x + r.w):
 			for y in range(r.y, r.y + r.h):
-				set_cell(0, Vector2i(x, y), ROOM_BUILDER_ID, Tiles.GROUND)
+				set_cell(BACKGROUND_LAYER, Vector2i(x, y), ROOM_BUILDER_ID, Tiles.GROUND)
 				
 func draw_edges():
 	# draw edges for the rooms
@@ -188,44 +195,44 @@ func draw_edges():
 		
 		# draw top and bottom edges
 		for x in range(r.x, r.x + r.w):
-			set_cell(0, Vector2i(x, r.y + r.h), ROOM_BUILDER_ID, Tiles.EDGE)
+			set_cell(BACKGROUND_LAYER, Vector2i(x, r.y + r.h), ROOM_BUILDER_ID, Tiles.EDGE)
 			
 			if (get_cell_atlas_coords(0, Vector2i(x, r.y - 1)) == Tiles.CORRIDOR):
-				set_cell(0, Vector2i(x, r.y), INTERIOR_ID, Tiles.TOP_DOOR)
-				set_cell(0, Vector2i(x, r.y + 1), INTERIOR_ID, Tiles.BOTTOM_DOOR)
+				set_cell(BACKGROUND_LAYER, Vector2i(x, r.y), INTERIOR_ID, Tiles.TOP_DOOR)
+				set_cell(BACKGROUND_LAYER, Vector2i(x, r.y + 1), INTERIOR_ID, Tiles.BOTTOM_DOOR)
 			else:
-				set_cell(0, Vector2i(x, r.y), ROOM_BUILDER_ID, Tiles.ROOF)
-				set_cell(0, Vector2i(x, r.y + 1), ROOM_BUILDER_ID, Tiles.WALL)
+				set_cell(BACKGROUND_LAYER, Vector2i(x, r.y), ROOM_BUILDER_ID, Tiles.ROOF)
+				set_cell(BACKGROUND_LAYER, Vector2i(x, r.y + 1), ROOM_BUILDER_ID, Tiles.WALL)
 
 			if (get_cell_atlas_coords(0, Vector2i(x, r.y + r.h + 1)) == Tiles.CORRIDOR):
-				set_cell(0, Vector2i(x, r.y + r.h), ROOM_BUILDER_ID, Tiles.CORRIDOR)
+				set_cell(BACKGROUND_LAYER, Vector2i(x, r.y + r.h), ROOM_BUILDER_ID, Tiles.CORRIDOR)
 		
 		# draw side edges
-#		for y in range(r.y, r.y + r.h):
-#			set_cell(0, Vector2i(r.x, y), ROOM_BUILDER_ID, Tiles.LEFT_WALL)
-#			set_cell(0, Vector2i(r.x + r.w, y), ROOM_BUILDER_ID, Tiles.RIGHT_WALL)
-#
-#			if (get_cell_atlas_coords(0, Vector2i(r.x - 1, y)) == Tiles.CORRIDOR):
-#				set_cell(0, Vector2i(r.x, y), 1, Tiles.CORRIDOR)
-#
-#			if (get_cell_atlas_coords(0, Vector2i(r.x + r.w + 1, y)) == Tiles.CORRIDOR):
-#				set_cell(0, Vector2i(r.x + r.w, y), ROOM_BUILDER_ID, Tiles.CORRIDOR)
+		# for y in range(r.y, r.y + r.h):
+		# 	set_cell(BACKGROUND_LAYER, Vector2i(r.x, y), ROOM_BUILDER_ID, Tiles.LEFT_WALL)
+		# 	set_cell(BACKGROUND_LAYER, Vector2i(r.x + r.w, y), ROOM_BUILDER_ID, Tiles.RIGHT_WALL)
+
+		# 	if (get_cell_atlas_coords(0, Vector2i(r.x - 1, y)) == Tiles.CORRIDOR):
+		# 		set_cell(BACKGROUND_LAYER, Vector2i(r.x, y), 1, Tiles.CORRIDOR)
+
+		# 	if (get_cell_atlas_coords(0, Vector2i(r.x + r.w + 1, y)) == Tiles.CORRIDOR):
+		# 		set_cell(BACKGROUND_LAYER, Vector2i(r.x + r.w, y), ROOM_BUILDER_ID, Tiles.CORRIDOR)
 
 
 		## draw corners
-		set_cell(0, Vector2i(r.x, r.y), ROOM_BUILDER_ID, Tiles.TOP_LEFT)
-		set_cell(0, Vector2i(r.x + r.w, r.y), ROOM_BUILDER_ID, Tiles.TOP_RIGHT)
-#		set_cell(0, Vector2i(r.x, r.y + r.h), ROOM_BUILDER_ID, Tiles.BOTTOM_LEFT)
-#		set_cell(0, Vector2i(r.x + r.w, r.y + r.h), ROOM_BUILDER_ID, Tiles.BOTTOM_RIGHT)
+		# set_cell(BACKGROUND_LAYER, Vector2i(r.x, r.y), ROOM_BUILDER_ID, Tiles.TOP_LEFT)
+		# set_cell(BACKGROUND_LAYER, Vector2i(r.x + r.w, r.y), ROOM_BUILDER_ID, Tiles.TOP_RIGHT)
+		# set_cell(BACKGROUND_LAYER, Vector2i(r.x, r.y + r.h), ROOM_BUILDER_ID, Tiles.BOTTOM_LEFT)
+		# set_cell(BACKGROUND_LAYER, Vector2i(r.x + r.w, r.y + r.h), ROOM_BUILDER_ID, Tiles.BOTTOM_RIGHT)
 		
 		# clean up side edges
-		var corridor_found = 0
-		for y in range(r.y, r.y + r.h):
-			if (get_cell_atlas_coords(0, Vector2i(r.x + r.w, y)) == Tiles.CORRIDOR):
-				if (corridor_found == 0):
-					corridor_found = 1
-				else:
-					set_cell(0, Vector2i(r.x + r.w, y), 1, Tiles.RIGHT_WALL)
+		# var corridor_found = 0
+		# for y in range(r.y, r.y + r.h):
+		# 	if (get_cell_atlas_coords(0, Vector2i(r.x + r.w, y)) == Tiles.CORRIDOR):
+		# 		if (corridor_found == 0):
+		# 			corridor_found = 1
+		# 		else:
+		# 			set_cell(BACKGROUND_LAYER, Vector2i(r.x + r.w, y), 1, Tiles.RIGHT_WALL)
 	
 func join_rooms():
 	for sister in leaves:
@@ -255,7 +262,7 @@ func connect_leaves(leaf1, leaf2):
 	for i in range(x, x + w):
 		for j in range(y, y + h):
 			if (get_cell_atlas_coords(0, Vector2i(i, j)) == Tiles.EMPTY):
-				set_cell(0, Vector2i(i, j), ROOM_BUILDER_ID, Tiles.CORRIDOR)
+				set_cell(BACKGROUND_LAYER, Vector2i(i, j), ROOM_BUILDER_ID, Tiles.CORRIDOR)
 			
 func clear_deadends():
 	var done = false
@@ -268,13 +275,13 @@ func clear_deadends():
 
 			var nearby = check_nearby(cell.x, cell.y)
 			if nearby[0] == 3 || next_to_corner(nearby):
-				set_cell(0, cell, 1, Tiles.ROOF)
+				set_cell(BACKGROUND_LAYER, cell, 1, Tiles.ROOF)
 				deadends.append(cell)
 				done = false
 	
 	if (deadends.size() > 1 && exit != null):
 		exit = deadends[Util.randi_range(0, deadends.size() - 1)]
-		set_cell(0, exit, 1, Tiles.EXIT)
+		set_cell(BACKGROUND_LAYER, exit, 1, Tiles.EXIT)
 	
 # check in 4 dirs to see how many tiles are empty
 func check_nearby(x, y):
@@ -325,35 +332,35 @@ func decorate_room(room):
 	var wall_art_variation: WallDeco = wall_art[Util.randi_range(0, wall_art.size() - 1)]
 	
 	if room.type == 0:
-		set_cell(1, Vector2i(room.center.x, room.center.y), INTERIOR_ID, Furniture.TABLE_TOP_LEFT)
-		set_cell(1, Vector2i(room.center.x + 1, room.center.y), INTERIOR_ID, Furniture.TABLE_TOP_MIDDLE)
-		set_cell(1, Vector2i(room.center.x + 2, room.center.y), INTERIOR_ID, Furniture.TABLE_TOP_RIGHT)
-		set_cell(1, Vector2i(room.center.x, room.center.y + 1), INTERIOR_ID, Furniture.TABLE_BOTTOM_LEFT)
-		set_cell(1, Vector2i(room.center.x + 1, room.center.y + 1), INTERIOR_ID, Furniture.TABLE_BOTTOM_MIDDLE)
-		set_cell(1, Vector2i(room.center.x + 2, room.center.y + 1), INTERIOR_ID, Furniture.TABLE_BOTTOM_RIGHT)
+		set_cell(FOREGROUND_LAYER, Vector2i(room.center.x, room.center.y), INTERIOR_ID, Furniture.TABLE_TOP_LEFT)
+		set_cell(FOREGROUND_LAYER, Vector2i(room.center.x + 1, room.center.y), INTERIOR_ID, Furniture.TABLE_TOP_MIDDLE)
+		set_cell(FOREGROUND_LAYER, Vector2i(room.center.x + 2, room.center.y), INTERIOR_ID, Furniture.TABLE_TOP_RIGHT)
+		set_cell(FOREGROUND_LAYER, Vector2i(room.center.x, room.center.y + 1), INTERIOR_ID, Furniture.TABLE_BOTTOM_LEFT)
+		set_cell(FOREGROUND_LAYER, Vector2i(room.center.x + 1, room.center.y + 1), INTERIOR_ID, Furniture.TABLE_BOTTOM_MIDDLE)
+		set_cell(FOREGROUND_LAYER, Vector2i(room.center.x + 2, room.center.y + 1), INTERIOR_ID, Furniture.TABLE_BOTTOM_RIGHT)
 		
 	elif room.type == 1:
 		var coordinates = checkFurnitureCorner(room, INTERIOR_ID, 2)
 		if coordinates != Vector2i(-1, -1):
-			set_cell(1, Vector2i(coordinates.x, coordinates.y + 1), INTERIOR_ID, couch_variation.get_top_left())
-			set_cell(1, Vector2i(coordinates.x + 1, coordinates.y + 1), INTERIOR_ID, couch_variation.get_top_middle())
-			set_cell(1, Vector2i(coordinates.x + 2, coordinates.y + 1), INTERIOR_ID, couch_variation.get_top_right())
-			set_cell(1, Vector2i(coordinates.x, coordinates.y + 2), INTERIOR_ID, couch_variation.get_bottom_left())
-			set_cell(1, Vector2i(coordinates.x + 1, coordinates.y + 2), INTERIOR_ID, couch_variation.get_bottom_middle())
-			set_cell(1, Vector2i(coordinates.x + 2, coordinates.y + 2), INTERIOR_ID, couch_variation.get_bottom_right())
+			set_cell(FOREGROUND_LAYER, Vector2i(coordinates.x, coordinates.y + 1), INTERIOR_ID, couch_variation.get_top_left())
+			set_cell(FOREGROUND_LAYER, Vector2i(coordinates.x + 1, coordinates.y + 1), INTERIOR_ID, couch_variation.get_top_middle())
+			set_cell(FOREGROUND_LAYER, Vector2i(coordinates.x + 2, coordinates.y + 1), INTERIOR_ID, couch_variation.get_top_right())
+			set_cell(FOREGROUND_LAYER, Vector2i(coordinates.x, coordinates.y + 2), INTERIOR_ID, couch_variation.get_bottom_left())
+			set_cell(FOREGROUND_LAYER, Vector2i(coordinates.x + 1, coordinates.y + 2), INTERIOR_ID, couch_variation.get_bottom_middle())
+			set_cell(FOREGROUND_LAYER, Vector2i(coordinates.x + 2, coordinates.y + 2), INTERIOR_ID, couch_variation.get_bottom_right())
 			
 		var carpet = Vector2i(room.center.x - 2, room.center.y - 2)
-		set_cell(1, Vector2i(carpet.x, carpet.y + 1), INTERIOR_ID, carpet_variation.get_top_left())
-		set_cell(1, Vector2i(carpet.x + 1, carpet.y + 1), INTERIOR_ID, carpet_variation.get_top_middle())
-		set_cell(1, Vector2i(carpet.x + 2, carpet.y + 1), INTERIOR_ID, carpet_variation.get_top_right())
-		set_cell(1, Vector2i(carpet.x, carpet.y + 2), INTERIOR_ID, carpet_variation.get_bottom_left())
-		set_cell(1, Vector2i(carpet.x + 1, carpet.y + 2), INTERIOR_ID, carpet_variation.get_bottom_middle())
-		set_cell(1, Vector2i(carpet.x + 2, carpet.y + 2), INTERIOR_ID, carpet_variation.get_bottom_right())
+		set_cell(FOREGROUND_LAYER, Vector2i(carpet.x, carpet.y + 1), INTERIOR_ID, carpet_variation.get_top_left())
+		set_cell(FOREGROUND_LAYER, Vector2i(carpet.x + 1, carpet.y + 1), INTERIOR_ID, carpet_variation.get_top_middle())
+		set_cell(FOREGROUND_LAYER, Vector2i(carpet.x + 2, carpet.y + 1), INTERIOR_ID, carpet_variation.get_top_right())
+		set_cell(FOREGROUND_LAYER, Vector2i(carpet.x, carpet.y + 2), INTERIOR_ID, carpet_variation.get_bottom_left())
+		set_cell(FOREGROUND_LAYER, Vector2i(carpet.x + 1, carpet.y + 2), INTERIOR_ID, carpet_variation.get_bottom_middle())
+		set_cell(FOREGROUND_LAYER, Vector2i(carpet.x + 2, carpet.y + 2), INTERIOR_ID, carpet_variation.get_bottom_right())
 	
 	var random_wall = Util.randi_range(room.x + 1, room.x + room.w - 1)
 	if (get_cell_atlas_coords(0, Vector2i(random_wall, room.y)) == Tiles.ROOF && get_cell_atlas_coords(1, Vector2i(random_wall, room.y + 1)) == Vector2i(-1, -1)):
-		set_cell(1, Vector2i(random_wall, room.y), INTERIOR_ID, wall_art_variation.get_top_middle())
-		set_cell(1, Vector2i(random_wall, room.y + 1), INTERIOR_ID, wall_art_variation.get_middle_middle())
+		set_cell(FOREGROUND_LAYER, Vector2i(random_wall, room.y), INTERIOR_ID, wall_art_variation.get_top_middle())
+		set_cell(FOREGROUND_LAYER, Vector2i(random_wall, room.y + 1), INTERIOR_ID, wall_art_variation.get_middle_middle())
 	
 func checkFurnitureCorner(room, width, length):
 	var startX = room.x + 2

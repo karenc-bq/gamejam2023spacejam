@@ -1,10 +1,11 @@
-[gd_scene load_steps=17 format=3 uid="uid://bsq5rdbyx2lig"]
+[gd_scene load_steps=19 format=3 uid="uid://bsq5rdbyx2lig"]
 
 [ext_resource type="Script" path="res://scenes/game_screen.gd" id="1_0f2hy"]
 [ext_resource type="Script" path="res://scenes/Util.gd" id="1_mu87s"]
 [ext_resource type="FontFile" uid="uid://cl1cc658t40si" path="res://assets/fonts/Kaph_Font_1_10/TrueType (.ttf)/Kaph-Regular.ttf" id="2_51c64"]
 [ext_resource type="Texture2D" uid="uid://c1m3e61fxknei" path="res://assets/interior/32x32/Room_Builder_free_32x32.png" id="2_345ac"]
 [ext_resource type="Script" path="res://scenes/Map.gd" id="2_cw1f6"]
+[ext_resource type="Texture2D" uid="uid://54kxocb8rv6d" path="res://assets/color_grid.png" id="3_ekvyx"]
 [ext_resource type="Texture2D" uid="uid://cogiqtvqwt3xj" path="res://assets/interior/32x32/Interiors_free_32x32.png" id="3_k254p"]
 [ext_resource type="PackedScene" uid="uid://wa1ytkr2nc41" path="res://scenes/duffy_sprites.tscn" id="3_tyju2"]
 [ext_resource type="Texture2D" uid="uid://bpbo5h1c7hv5u" path="res://assets/Jordan 1 High Dior.png" id="5_hjov2"]
@@ -298,6 +299,11 @@ texture_region_size = Vector2i(32, 32)
 11:8/0 = 0
 13:7/0 = 0
 5:1/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_k03vc"]
+texture = ExtResource("3_ekvyx")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lx3su"]
 texture = ExtResource("3_k254p")
@@ -1424,6 +1430,7 @@ texture_region_size = Vector2i(32, 32)
 tile_size = Vector2i(32, 32)
 sources/1 = SubResource("TileSetAtlasSource_sfqri")
 sources/3 = SubResource("TileSetAtlasSource_lx3su")
+sources/2 = SubResource("TileSetAtlasSource_k03vc")
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jg3yj"]
 radius = 16.0
@@ -1450,7 +1457,7 @@ script = ExtResource("1_mu87s")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 clip_children = 2
-color = Color(0.0431373, 0.0431373, 0.0431373, 1)
+color = Color(0, 0, 0, 1)
 
 [node name="StartPosition" type="Marker2D" parent="."]
 position = Vector2(250, 450)
@@ -1459,14 +1466,21 @@ position = Vector2(250, 450)
 tile_set = SubResource("TileSet_kawa3")
 cell_quadrant_size = 32
 format = 2
-layer_0/name = "background"
-layer_1/name = "furniture"
+layer_0/name = "background_color"
+layer_1/name = "background"
 layer_1/enabled = true
 layer_1/modulate = Color(1, 1, 1, 1)
 layer_1/y_sort_enabled = false
 layer_1/y_sort_origin = 0
 layer_1/z_index = 0
 layer_1/tile_data = PackedInt32Array()
+layer_2/name = "furniture"
+layer_2/enabled = true
+layer_2/modulate = Color(1, 1, 1, 1)
+layer_2/y_sort_enabled = false
+layer_2/y_sort_origin = 0
+layer_2/z_index = 0
+layer_2/tile_data = PackedInt32Array()
 script = ExtResource("2_cw1f6")
 min_room_factor = 0.5
 
