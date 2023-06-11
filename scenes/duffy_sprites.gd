@@ -17,7 +17,7 @@ var alerted = false
 func _ready():
 	screen_size = get_viewport_rect().size
 	tile_map = get_parent().get_node("TileMap")
-	var start_room_idx = randi_range(0, tile_map.rooms.size())
+	var start_room_idx = randi_range(0, tile_map.rooms.size() - 1)
 	var start_room = tile_map.rooms[start_room_idx]
 	position = tile_map.map_to_local(start_room.center)
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bsq5rdbyx2lig"]
+[gd_scene load_steps=17 format=3 uid="uid://bsq5rdbyx2lig"]
 
 [ext_resource type="Script" path="res://scenes/game_screen.gd" id="1_0f2hy"]
 [ext_resource type="Script" path="res://scenes/Util.gd" id="1_mu87s"]
@@ -1429,8 +1429,28 @@ sources/3 = SubResource("TileSetAtlasSource_lx3su")
 radius = 16.0
 height = 48.0
 
+[sub_resource type="Gradient" id="Gradient_onukn"]
+offsets = PackedFloat32Array(0, 0.0292683, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.0878049, 0.0878049, 0.0878049, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ub431"]
+gradient = SubResource("Gradient_onukn")
+fill = 1
+fill_from = Vector2(0, 1)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_62qg0"]
+blend_mode = 1
+light_mode = 1
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_3dcpv"]
+blend_mode = 1
+
 [node name="game_screen" type="Node2D"]
 script = ExtResource("1_mu87s")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+clip_children = 2
+color = Color(0.0431373, 0.0431373, 0.0431373, 1)
 
 [node name="StartPosition" type="Marker2D" parent="."]
 position = Vector2(250, 450)
@@ -1460,11 +1480,26 @@ shape = SubResource("CapsuleShape2D_jg3yj")
 
 [node name="duffy_sprites" parent="." instance=ExtResource("3_tyju2")]
 
-[node name="TimerNode" type="Node2D" parent="."]
-z_index = 1000
+[node name="PointLight2D" type="PointLight2D" parent="."]
+z_index = 5
+position = Vector2(1024, 640)
+scale = Vector2(34, 22)
+range_item_cull_mask = 3
+shadow_enabled = true
+shadow_color = Color(0, 0, 0, 1)
+shadow_item_cull_mask = 3
+texture = SubResource("GradientTexture2D_ub431")
+
+[node name="CanvasGroup" type="CanvasGroup" parent="."]
+clip_children = 1
+material = SubResource("CanvasItemMaterial_62qg0")
+
+[node name="TimerNode" type="Node2D" parent="CanvasGroup"]
+z_index = 10
+material = SubResource("CanvasItemMaterial_3dcpv")
 script = ExtResource("1_0f2hy")
 
-[node name="TimerLabel" type="RichTextLabel" parent="TimerNode"]
+[node name="TimerLabel" type="RichTextLabel" parent="CanvasGroup/TimerNode"]
 offset_left = 24.0
 offset_top = 24.0
 offset_right = 328.0
