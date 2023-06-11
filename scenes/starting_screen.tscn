@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://svorbyjm1f56"]
+[gd_scene load_steps=8 format=3 uid="uid://svorbyjm1f56"]
 
 [ext_resource type="Script" path="res://scenes/starting_screen.gd" id="1_l651b"]
 [ext_resource type="FontFile" uid="uid://cl1cc658t40si" path="res://assets/fonts/Kaph_Font_1_10/TrueType (.ttf)/Kaph-Regular.ttf" id="2_n7emn"]
@@ -6,6 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://cj3hb25oxa8l4" path="res://assets/tunesquad.png" id="3_jal33"]
 [ext_resource type="FontFile" uid="uid://3dwi5c37quoh" path="res://assets/fonts/Lithos Black Regular.otf" id="4_rowge"]
 [ext_resource type="Texture2D" uid="uid://c1d838exgqde0" path="res://assets/basketball.png" id="4_ue517"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_b7jnx"]
 
 [node name="starting_screen" type="Node2D"]
 script = ExtResource("1_l651b")
@@ -40,18 +42,18 @@ stretch_mode = 4
 
 [node name="start_button" type="Button" parent="."]
 offset_left = 876.0
-offset_top = 1003.0
+offset_top = 1066.0
 offset_right = 1100.0
-offset_bottom = 1067.0
+offset_bottom = 1130.0
 theme_override_fonts/font = ExtResource("2_n7emn")
 theme_override_font_sizes/font_size = 20
 text = "START GAME"
 
 [node name="quit_button" type="Button" parent="."]
 offset_left = 876.0
-offset_top = 1084.0
+offset_top = 1147.0
 offset_right = 1100.0
-offset_bottom = 1148.0
+offset_bottom = 1211.0
 theme_override_fonts/font = ExtResource("2_n7emn")
 theme_override_font_sizes/font_size = 20
 text = "QUIT"
@@ -79,5 +81,19 @@ theme_override_fonts/normal_font = ExtResource("4_rowge")
 theme_override_font_sizes/normal_font_size = 180
 text = "HEIST"
 
+[node name="blurb" type="RichTextLabel" parent="."]
+material = SubResource("CanvasItemMaterial_b7jnx")
+offset_left = 820.0
+offset_top = 966.0
+offset_right = 1232.0
+offset_bottom = 1086.0
+theme_override_fonts/normal_font = ExtResource("4_rowge")
+theme_override_font_sizes/normal_font_size = 25
+text = "1. find the shoes
+2. leave through the exit
+3. beware of dogs"
+
+[connection signal="mouse_entered" from="start_button" to="." method="_on_btn_mouse_entered"]
+[connection signal="mouse_exited" from="start_button" to="." method="_on_btn_mouse_exited"]
 [connection signal="pressed" from="start_button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="quit_button" to="." method="_on_quit_button_pressed"]
