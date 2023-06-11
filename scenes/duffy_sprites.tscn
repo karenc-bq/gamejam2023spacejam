@@ -10,7 +10,7 @@
 [sub_resource type="SpriteFrames" id="SpriteFrames_yr5b3"]
 animations = [{
 "frames": [{
-"duration": 1.0,
+"duration": 0.8,
 "texture": ExtResource("1_8kqfj")
 }, {
 "duration": 1.0,
@@ -42,8 +42,10 @@ position = Vector2(-9.53674e-07, -9.53674e-07)
 scale = Vector2(2.82128, 2.05438)
 sprite_frames = SubResource("SpriteFrames_yr5b3")
 animation = &"walk"
+frame_progress = 0.5385
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_qymjm")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="area_exited" from="." to="." method="_on_area_exited"]

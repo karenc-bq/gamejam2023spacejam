@@ -3,6 +3,7 @@ extends Area2D
 # Some code is borrowed from:
 # https://docs.godotengine.org/en/stable/getting_started/first_2d_game/03.coding_the_player.html
 
+signal gotShoe
 
 const Map = preload("res://scenes/Map.gd")
 
@@ -51,9 +52,17 @@ func _process(delta):
 		alerted = true
 
 
-func _on_area_entered(area):
-	print("Duck got shoe")
-	print("entered area: ", area)
-	pass # Replace with function body.
+func _on_area_exited(area):
+	print("Duck got shoe2")
+	print("exited area2: ", area)
+	gotShoe.emit()
+	# Hide the shoe to emulate shoe retrieval
+	area.hide()
 
 
+func _on_shoes_area_area_entered(area):
+	print("Duck got shoe2")
+	print("exited area2: ", area)
+	gotShoe.emit()
+	# Hide the shoe to emulate shoe retrieval
+	area.hide()

@@ -1426,6 +1426,8 @@ sources/1 = SubResource("TileSetAtlasSource_sfqri")
 sources/3 = SubResource("TileSetAtlasSource_lx3su")
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jg3yj"]
+radius = 16.0
+height = 48.0
 
 [node name="game_screen" type="Node2D"]
 script = ExtResource("1_mu87s")
