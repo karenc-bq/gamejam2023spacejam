@@ -31,6 +31,7 @@ const INTERIOR_ID = 3
 const BACKGROUND_COLOR_LAYER = 0
 const BACKGROUND_LAYER = 1
 const FOREGROUND_LAYER = 2
+const SPAWN_LAYER = 3
 
 var exit: Vector2i
 var deadends = []
@@ -58,6 +59,7 @@ var leaves = []
 var leaf_id = 0
 var rooms = []
 var shoeLocation = Vector2(0, 0)
+var spawnRoom = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -174,30 +176,38 @@ func create_rooms():
 	draw_rooms()
 				
 func draw_rooms():
-	var shoeRoom = randi_range(0, rooms.size())
+	var shoeRoom = randi_range(0, rooms.size() - 1)
+	spawnRoom = randi_range(0, rooms.size() - 1)
+	while spawnRoom == shoeRoom:
+		spawnRoom = randi_range(0, rooms.size() - 1)
+		
 	# draw the rooms on the tilemap
 	for i in range(rooms.size()):
 		var r = rooms[i]
 		
-		var dogInRoom = randi_range(1, 100)
-		if dogInRoom >= 40 && i != shoeRoom:
-			var dogX = randi_range(r.x + 2, r.x + r.w - 2)
-			var dogY = randi_range(r.y + 3, r.y + r.h - 2)
-			var dog = load("res://scenes/dog.tscn")
-			var newDog = dog.instantiate()
-			newDog.position = Vector2(dogX * 32, dogY * 32)
-			add_child(newDog)
-		
-		var shoeX = randi_range(r.x, r.x + r.w)
-		var shoeY = randi_range(r.y, r.y + r.h)
-		if i == shoeRoom:
-			var shoes = $shoesArea.get_node("shoes")
-			shoes.position = Vector2(r.center * 32)
-
 		for x in range(r.x, r.x + r.w):
 			for y in range(r.y, r.y + r.h):
 				set_cell(BACKGROUND_LAYER, Vector2i(x, y), ROOM_BUILDER_ID, Tiles.GROUND)
-				
+		
+		if i == spawnRoom:
+			set_cell(SPAWN_LAYER, r.center, ROOM_BUILDER_ID, Tiles.GROUND)
+		else:
+			var dogInRoom = randi_range(1, 100)
+			if dogInRoom >= 40 && i != shoeRoom:
+				var dogX = randi_range(r.x + 2, r.x + r.w - 2)
+				var dogY = randi_range(r.y + 3, r.y + r.h - 2)
+				var dog = load("res://scenes/dog.tscn")
+				var newDog = dog.instantiate()
+				newDog.position = Vector2(dogX * 32, dogY * 32)
+				add_child(newDog)
+				newDog.add_to_group("dogs")
+			
+			var shoeX = randi_range(r.x, r.x + r.w)
+			var shoeY = randi_range(r.y, r.y + r.h)
+			if i == shoeRoom:
+				var shoes = $shoesArea.get_node("shoes")
+				shoes.position = Vector2(r.center * 32)
+
 func draw_edges():
 	# draw edges for the rooms
 	for i in range(rooms.size()):
@@ -322,7 +332,8 @@ func along_wall(x, y):
 func decorate_rooms():
 	for i in range(rooms.size()):
 		var r = rooms[i]
-		decorate_room(r)
+		if i != spawnRoom:
+			decorate_room(r)
 		
 func decorate_room(room):
 	var couches = Furniture.get_couches()
