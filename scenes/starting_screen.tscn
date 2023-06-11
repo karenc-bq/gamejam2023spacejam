@@ -1,37 +1,83 @@
-[gd_scene load_steps=3 format=3 uid="uid://svorbyjm1f56"]
+[gd_scene load_steps=7 format=3 uid="uid://svorbyjm1f56"]
 
 [ext_resource type="Script" path="res://scenes/starting_screen.gd" id="1_l651b"]
 [ext_resource type="FontFile" uid="uid://cl1cc658t40si" path="res://assets/fonts/Kaph_Font_1_10/TrueType (.ttf)/Kaph-Regular.ttf" id="2_n7emn"]
+[ext_resource type="Texture2D" uid="uid://dxm5qgxkjo8vb" path="res://assets/daffy_duck.png" id="2_xmsn5"]
+[ext_resource type="Texture2D" uid="uid://cj3hb25oxa8l4" path="res://assets/tunesquad.png" id="3_jal33"]
+[ext_resource type="FontFile" uid="uid://3dwi5c37quoh" path="res://assets/fonts/Lithos Black Regular.otf" id="4_rowge"]
+[ext_resource type="Texture2D" uid="uid://c1d838exgqde0" path="res://assets/basketball.png" id="4_ue517"]
 
 [node name="starting_screen" type="Node2D"]
 script = ExtResource("1_l651b")
 
+[node name="daffy" type="TextureRect" parent="."]
+offset_left = 1236.0
+offset_top = 200.0
+offset_right = 2070.0
+offset_bottom = 1421.0
+texture = ExtResource("2_xmsn5")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="tunesquad" type="TextureRect" parent="."]
+offset_left = 550.0
+offset_top = -108.0
+offset_right = 1451.0
+offset_bottom = 789.0
+size_flags_horizontal = 4
+size_flags_vertical = 0
+texture = ExtResource("3_jal33")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="basketball" type="TextureRect" parent="."]
+offset_top = 642.0
+offset_right = 690.0
+offset_bottom = 1336.0
+texture = ExtResource("4_ue517")
+expand_mode = 1
+stretch_mode = 4
+
 [node name="start_button" type="Button" parent="."]
-offset_left = 880.0
-offset_top = 384.0
-offset_right = 1104.0
-offset_bottom = 448.0
+offset_left = 876.0
+offset_top = 1003.0
+offset_right = 1100.0
+offset_bottom = 1067.0
 theme_override_fonts/font = ExtResource("2_n7emn")
 theme_override_font_sizes/font_size = 20
 text = "START GAME"
 
 [node name="quit_button" type="Button" parent="."]
-offset_left = 880.0
-offset_top = 512.0
-offset_right = 1104.0
-offset_bottom = 576.0
+offset_left = 876.0
+offset_top = 1084.0
+offset_right = 1100.0
+offset_bottom = 1148.0
 theme_override_fonts/font = ExtResource("2_n7emn")
 theme_override_font_sizes/font_size = 20
 text = "QUIT"
 
-[node name="RichTextLabel" type="RichTextLabel" parent="."]
-offset_left = 896.0
-offset_top = 240.0
-offset_right = 1128.0
-offset_bottom = 304.0
-theme_override_fonts/normal_font = ExtResource("2_n7emn")
-theme_override_font_sizes/normal_font_size = 50
-text = "SHOES"
+[node name="sneaker" type="RichTextLabel" parent="."]
+offset_left = 578.0
+offset_top = 599.0
+offset_right = 1515.0
+offset_bottom = 825.0
+theme_override_colors/default_color = Color(0.168627, 0.317647, 0.592157, 1)
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 1)
+theme_override_fonts/normal_font = ExtResource("4_rowge")
+theme_override_font_sizes/normal_font_size = 180
+text = "SNEAKER"
+
+[node name="heist" type="RichTextLabel" parent="."]
+offset_left = 731.0
+offset_top = 768.0
+offset_right = 1347.0
+offset_bottom = 996.0
+theme_override_colors/default_color = Color(0.168627, 0.317647, 0.592157, 1)
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0.952941, 0, 0.0509804, 1)
+theme_override_fonts/normal_font = ExtResource("4_rowge")
+theme_override_font_sizes/normal_font_size = 180
+text = "HEIST"
 
 [connection signal="pressed" from="start_button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="quit_button" to="." method="_on_quit_button_pressed"]

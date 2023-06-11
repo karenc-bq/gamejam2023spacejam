@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://2bq0gop47vyr"]
+[gd_scene load_steps=4 format=3 uid="uid://ctgck02rtuchx"]
 
 [ext_resource type="Script" path="res://scenes/end_screen.gd" id="1_ea5ly"]
 [ext_resource type="FontFile" uid="uid://cl1cc658t40si" path="res://assets/fonts/Kaph_Font_1_10/TrueType (.ttf)/Kaph-Regular.ttf" id="1_qixg6"]
+[ext_resource type="Texture2D" uid="uid://ol3es1dbq8nv" path="res://assets/starting_screen_background.png" id="3_n6j4a"]
 
 [node name="end_screen" type="Node2D"]
 script = ExtResource("1_ea5ly")
@@ -14,5 +15,13 @@ offset_bottom = 549.0
 theme_override_fonts/font = ExtResource("1_qixg6")
 theme_override_font_sizes/font_size = 20
 text = "RESTART"
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = -53.0
+offset_top = 61.0
+offset_right = 2026.0
+offset_bottom = 1358.0
+texture = ExtResource("3_n6j4a")
+stretch_mode = 4
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
