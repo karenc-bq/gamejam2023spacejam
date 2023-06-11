@@ -40,9 +40,9 @@ func _process(delta):
 		$CharacterBody2D.stop()
 	
 	var future_pos = position + velocity * delta
-	var furnitureTile = tile_map.get_cell_atlas_coords(1, tile_map.local_to_map(Vector2i(future_pos.x, future_pos.y)))
+	var furnitureTile = tile_map.get_cell_atlas_coords(Map.FOREGROUND_LAYER, tile_map.local_to_map(Vector2i(future_pos.x, future_pos.y)))
 	var map_pos = tile_map.local_to_map(Vector2i(future_pos.x, future_pos.y))
-	var tile = tile_map.get_cell_atlas_coords(0, map_pos)
+	var tile = tile_map.get_cell_atlas_coords(Map.BACKGROUND_LAYER ,map_pos)
 	if (tile == Map.Tiles.BOTTOM_DOOR || tile == Map.Tiles.TOP_DOOR || tile == Map.Tiles.CORRIDOR || tile == Map.Tiles.GROUND || tile == Map.Tiles.EXIT):
 		var isFurniture = false
 		for i in range(Map.Furniture.FURNITURE_TILES.size()):
