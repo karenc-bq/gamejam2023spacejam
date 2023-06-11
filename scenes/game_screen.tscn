@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://bsq5rdbyx2lig"]
+[gd_scene load_steps=21 format=3 uid="uid://bsq5rdbyx2lig"]
 
 [ext_resource type="Script" path="res://scenes/game_screen.gd" id="1_0f2hy"]
 [ext_resource type="Script" path="res://scenes/Util.gd" id="1_mu87s"]
@@ -9,6 +9,18 @@
 [ext_resource type="Texture2D" uid="uid://cogiqtvqwt3xj" path="res://assets/interior/32x32/Interiors_free_32x32.png" id="3_k254p"]
 [ext_resource type="PackedScene" uid="uid://wa1ytkr2nc41" path="res://scenes/duffy_sprites.tscn" id="3_tyju2"]
 [ext_resource type="Texture2D" uid="uid://bpbo5h1c7hv5u" path="res://assets/Jordan 1 High Dior.png" id="5_hjov2"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_62qg0"]
+blend_mode = 1
+light_mode = 1
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_3dcpv"]
+blend_mode = 1
+
+[sub_resource type="Gradient" id="Gradient_d2o47"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_r05w0"]
+gradient = SubResource("Gradient_d2o47")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_sfqri"]
 texture = ExtResource("2_345ac")
@@ -1445,18 +1457,37 @@ gradient = SubResource("Gradient_onukn")
 fill = 1
 fill_from = Vector2(0, 1)
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_62qg0"]
-blend_mode = 1
-light_mode = 1
-
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_3dcpv"]
-blend_mode = 1
-
 [node name="game_screen" type="Node2D"]
 script = ExtResource("1_mu87s")
 
-[node name="CanvasModulate" type="CanvasModulate" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 2
+
+[node name="CanvasGroup" type="CanvasGroup" parent="CanvasLayer"]
+clip_children = 1
+z_index = 10
+material = SubResource("CanvasItemMaterial_62qg0")
+
+[node name="TimerNode" type="Node2D" parent="CanvasLayer/CanvasGroup"]
+z_index = 10
+material = SubResource("CanvasItemMaterial_3dcpv")
+script = ExtResource("1_0f2hy")
+
+[node name="TimerLabel" type="RichTextLabel" parent="CanvasLayer/CanvasGroup/TimerNode"]
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 328.0
+offset_bottom = 160.0
+theme_override_fonts/normal_font = ExtResource("2_51c64")
+theme_override_font_sizes/normal_font_size = 50
+
+[node name="PointLight2D" type="PointLight2D" parent="CanvasLayer/CanvasGroup"]
 visible = false
+position = Vector2(48, 32)
+scale = Vector2(1, 152.5)
+texture = SubResource("GradientTexture1D_r05w0")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
 clip_children = 2
 color = Color(0, 0, 0, 1)
 
@@ -1512,21 +1543,6 @@ shadow_color = Color(0, 0, 0, 1)
 shadow_item_cull_mask = 3
 texture = SubResource("GradientTexture2D_ub431")
 
-[node name="CanvasGroup" type="CanvasGroup" parent="."]
-clip_children = 1
-material = SubResource("CanvasItemMaterial_62qg0")
-
-[node name="TimerNode" type="Node2D" parent="CanvasGroup"]
-z_index = 10
-material = SubResource("CanvasItemMaterial_3dcpv")
-script = ExtResource("1_0f2hy")
-
-[node name="TimerLabel" type="RichTextLabel" parent="CanvasGroup/TimerNode"]
-offset_left = 24.0
-offset_top = 24.0
-offset_right = 328.0
-offset_bottom = 160.0
-theme_override_fonts/normal_font = ExtResource("2_51c64")
-theme_override_font_sizes/normal_font_size = 50
+[node name="CanvasLayer2" type="CanvasLayer" parent="."]
 
 [connection signal="area_entered" from="TileMap/shoesArea" to="TileMap" method="_on_shoes_area_area_entered"]
