@@ -1,7 +1,7 @@
 # Space Jam - Sneaker Heist
 This game was built for Improving Vancouver Game Jam 2023
 
-![image](Space-Jam-534x800.jpg)
+![Game Screenshot](image.png)
 
 You are Daffy Duck. You are on a mission to enter Michael Jordan's house to retrieve his basketball shoes so you can defeat space aliens in a game of hoops and save Michael Jordan's NBA pals.
 
@@ -11,6 +11,8 @@ You are Daffy Duck. You are on a mission to enter Michael Jordan's house to retr
 3. you have a time limit
 
 Be careful of the guard dog.
+
+![image](Space-Jam-534x800.jpg)
 
 ### References and Assets
 - https://www.spriters-resource.com/fullview/11674/
