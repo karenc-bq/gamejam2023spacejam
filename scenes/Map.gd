@@ -66,7 +66,7 @@ func generate():
 	create_rooms()
 	join_rooms()
 	clear_deadends()
-	draw_edges()
+#	draw_edges()
 
 func fill_roof():
 	for x in range(0, map_w):

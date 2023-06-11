@@ -18,7 +18,6 @@ func _ready():
 func _process(delta):
 	pass
 
-
 func _on_timer_timeout():
 	seconds = seconds - 1
 	if seconds == -1:
