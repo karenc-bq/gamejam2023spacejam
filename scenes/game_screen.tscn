@@ -1451,7 +1451,6 @@ script = ExtResource("1_mu87s")
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="CanvasGroup" type="CanvasGroup" parent="CanvasLayer"]
-visible = false
 clip_children = 1
 material = SubResource("CanvasItemMaterial_62qg0")
 
@@ -1476,7 +1475,6 @@ offset_bottom = 107.0
 texture_normal = ExtResource("2_eqv50")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-visible = false
 clip_children = 2
 color = Color(0, 0, 0, 1)
 
