@@ -162,21 +162,15 @@ func create_rooms():
 				
 func draw_rooms():
 	var shoeRoom = randi_range(0, rooms.size())
-#	shoeRoom = 0 #-AL- remove this line do notttt commit!!!!!!
+	shoeRoom = 0 #-AL- remove this line do notttt commit!!!!!!
 	# draw the rooms on the tilemap
 	for i in range(rooms.size()):
 		var r = rooms[i]
 		var shoeX = randi_range(r.x, r.x + r.w)
 		var shoeY = randi_range(r.y, r.y + r.h)
 		if i == shoeRoom:
-			var shoesArea = Area2D.new()
-			var shoes = Sprite2D.new()
+			var shoes = $shoesArea.get_node("shoes")
 			shoes.position = Vector2(r.center * 32)
-			shoes.texture = load("res://assets/Jordan 1 High Dior.png")
-			shoesArea.monitoring = true
-			shoesArea.area_entered.connect(_on_shoes_found)
-			shoesArea.add_child(shoes)
-			add_child(shoesArea)
 
 		for x in range(r.x, r.x + r.w):
 			for y in range(r.y, r.y + r.h):
@@ -305,6 +299,7 @@ func along_wall(x, y):
 		if get_cell_atlas_coords(0, Vector2i(x, y + 1)) == Tiles.CORRIDOR || get_cell_atlas_coords(0, Vector2i(x, y - 1)) == Tiles.CORRIDOR:
 			return true
 
-func _on_shoes_found():
+
+func _on_shoes_area_area_entered(area):
 	print("found shoes")
-	pass
+	pass # Replace with function body.
